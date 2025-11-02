@@ -33,7 +33,7 @@ public abstract class Socio
         this.nombre = p_nombre;
     }
 
-    private void setDiasPrestamo(int p_diasPrestamo){
+    protected void setDiasPrestamo(int p_diasPrestamo){
         this.diasPrestamo = p_diasPrestamo;
     }
 
@@ -41,7 +41,7 @@ public abstract class Socio
         this.prestamos = p_prestamos;
     }
 
-    public int getDniSocio(){
+    public int getDni(){
         return this.dniSocio;
     }
 
@@ -80,7 +80,7 @@ public abstract class Socio
     }
 
     public String toString(){
-        return "D.N.I.: "+this.getDniSocio()+" || "+this.getNombre()+"("+this.soyDeLaClase()+") || Libros Prestados: "+this.cantLibroPrestados();
+        return "D.N.I.: "+this.getDni()+" || "+this.getNombre()+"("+this.soyDeLaClase()+") || Libros Prestados: "+this.cantLibroPrestados();
     }
 
     public boolean puedePedir(){
