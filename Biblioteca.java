@@ -90,12 +90,20 @@ public class Biblioteca {
 
     // Prestar y Devolver Libro
     public void devolverLibro(Libro p_libro) throws LibroEnBiblioteca {
-        if (p_libro.prestado()) {
-            p_libro.getPrestamos().registrarFechaDevolucion(new GregorianCalendar());
+    if (p_libro.prestado()) {
+        Prestamo prestamoActivo = p_libro.ultimoPrestamo();
+        if (prestamoActivo != null) {
+            prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());
+            
         } else {
-            throw new LibroEnBiblioteca("El libro '" + p_libro.getTitulo() + "' no se puede devolver ya que se encuentra en la biblioteca\n");
+            // esto es para q no cree el objeto en caso que no exista
+            throw new RuntimeException("Error interno: Libro marcado como prestado sin un préstamo activo.");
         }
+        
+    } else {
+        throw new LibroEnBiblioteca("El libro '" + p_libro.getTitulo() + "' no se puede devolver ya que se encuentra en la biblioteca\n");
     }
+}
 
     /**
      * Devuelve la cantidad de un tipo de socio recibido por parametro
@@ -129,7 +137,8 @@ public class Biblioteca {
                 }
             }
         }
-
+        
+        return prestamosVencidos;
     }
 
     public String listarSocio(){
@@ -200,36 +209,12 @@ public class Biblioteca {
         return listado;
     }
 
-    // Agregar o Quitar Socio
-    public void agregarSocio(Socio p_socio){
-        //aca vamos a tener que ver como le llaman al getDni o getDniSocio
-        this.getSocios().put(new Integer(p_socio.getDni) , p_socio);
-    }  
-
-    public void eliminarSocio(Socio p_socio){
-        this.getSocios().remove(new Integer(p_socio.getDni));
-    }
-
-    // Métodos
-    public void nuevoLibro(String p_titulo, int p_edicion,String p_editorial, int p_anio){
-        //aca el mismo dilema de como acomodan los parametros en el constructor 
-        this.agregarLibro(new Libro(p_titulo,p_edicion,p_editorial,p_anio));
-    }
-
-    public void nuevoSocioEstudiante(int p_dniSocio, String p_nombre, String p_carrera){
-        this.agregarSocio(new Estudiante(p_dniSocio,p_nombre,p_carrera));
-    }
-
-    public void nuevoSocioDocente(int p_dniSocio, String p_nombre, String p_area){
-        this.agregarSocio(new Docente(p_dniSocio,p_nombre,p_area));
-    }
-
     // Prestar y Devolver Libro
     public boolean prestarLibro(Calendar p_fechaRetiro, Socio p_socio, Libro p_libro) {
         if (p_socio != null) {
             if (p_socio.puedePedir() && !p_libro.prestado()) {
-                p_socio.addPrestamo(new Prestamo(p_fechaRetiro, p_socio, p_libro));
-                p_libro.addPrestamo(new Prestamo(p_fechaRetiro, p_socio, p_libro));
+                p_socio.agregarPrestamo(new Prestamo(p_fechaRetiro, p_libro, p_socio));
+                p_libro.agregarPrestamo(new Prestamo(p_fechaRetiro, p_libro, p_socio));
                 return true;
             } else {
                 return false;
@@ -237,49 +222,6 @@ public class Biblioteca {
         } else {
             return false;
         }
-    }
-
-    public void devolverLibro(Libro p_libro) throws LibroEnBiblioteca{
-        if (p_libro.prestado()) {
-            p_libro.getPrestamo().registrarFechaDevolucion(new GregorianCalendar());
-        } else {
-            throw new LibroEnBiblioteca("El libro '" + p_libro.getTitulo() + "' no se puede devolver ya que está en la biblioteca\n");
-        }
-    }
-
-    /**
-     * Devuelve la cantidad de un tipo de socio recibido por parametro
-     */
-    public int cantidadDeSociosPorTipos(String p_tipo){
-        int cont = 0;
-
-        for(Map.Entry<Integer,Socio> entrada : this.getSocios().entrySet()){
-            if(entrada.getValue().soyDeLaClase().equalsIgnoreCase(p_tipo)){
-                cont++;
-            }
-        }
-
-        return cont;
-    }
-
-    /**
-     * - prestamosVencidos(): devuelve una colección con los préstamos vencidos al día de la fecha. 
-     */
-    public ArrayList prestamosVencidos(){
-        Calendar fechaActual = Calendar.getInstance();
-        ArrayList prestamosVencidos = new ArrayList();
-        //Llammos a los  socio de la lista
-        for(Map.Entry<Integer,Socio> entrada : this.getSocios().entrySet()){
-
-            //luego recorremos los prestamos de un socio y vamos comparando si un prestamos en particular vencio
-            for(Prestamo unPrestamo : entrada.getValue().getPrestamos()){
-
-                if(unPrestamo.vencido(fechaActual)){
-                    prestamosVencidos.add(unPrestamo);
-                }
-            }
-        }
-
     }
 
     public String quienTieneElLibro(Libro p_libro) throws LibroEnBiblioteca{

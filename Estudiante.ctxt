@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Estudiante
+comment0.text=\r\n\ La\ clase\ Estudiante\ hereda\ de\ Socio\r\n\ Tiene\ restricciones\ de\ prestamo\ relacionadas\ con\ la\ cantidad\ maxima\ de\ libros\r\n\ @author\ (Escubilla\ Micaela\ Bel\u00E9n)\ \r\n\ @version\ (28/10/2025)\r\n
+comment1.params=p_dni\ p_nombre\ p_diasPrestamo\ p_carrera
+comment1.target=Estudiante(int,\ java.lang.String,\ int,\ java.lang.String)
+comment1.text=\r\n\ Constructor\ de\ la\ clase\ Docente\r\n\ @param\ int\ p_dni\r\n\ @param\ String\ p_nombre\ \r\n\ @param\ int\ p_diasPrestamo\ \r\n\ @param\ String\ p_carrera\r\n
+comment2.params=p_carrera
+comment2.target=void\ setCarrera(java.lang.String)
+comment2.text=\r\n\ Establece\ la\ carrera\ del\ estudiante\r\n\ @param\ p_carrera\ el\ nuevo\ valor\ para\ la\ carrera\r\n
+comment3.params=
+comment3.target=java.lang.String\ getCarrera()
+comment3.text=\r\n\ Obtiene\ la\ carrera\ que\ esta\ cursando\ el\ estudiante\r\n\ @return\ String\ con\ la\ carrera\ del\ estudiante\r\n
+comment4.params=
+comment4.target=boolean\ puedePedir()
+comment4.text=\r\n\ Determina\ si\ el\ Estudiante\ puede\ pedir\ un\ nuevo\ libro\r\n\ @return\ true\ si\ el\ estudiante\ cumple\ con\ las\ condiciones\r\n
+comment5.params=
+comment5.target=java.lang.String\ soyDeLaClase()
+comment5.text=\r\n\ Devuelve\ el\ tipo\ de\ clase\ del\ socio\r\n\ @return\ un\ String\ "Estudiante"\r\n
+numComments=6

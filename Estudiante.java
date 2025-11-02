@@ -40,7 +40,7 @@ public class Estudiante extends Socio{
      */
     @Override
     public boolean puedePedir(){
-        if((super.puedePedir() == true) && super.cantLibrosPrestados() <= 3){
+        if((super.puedePedir() == true) && this.cantLibroPrestados() <= 3){
             return true;
         } else {
             return false;
