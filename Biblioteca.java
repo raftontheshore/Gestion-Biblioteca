@@ -90,20 +90,20 @@ public class Biblioteca {
 
     // Prestar y Devolver Libro
     public void devolverLibro(Libro p_libro) throws LibroEnBiblioteca {
-    if (p_libro.prestado()) {
-        Prestamo prestamoActivo = p_libro.ultimoPrestamo();
-        if (prestamoActivo != null) {
-            prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());
-            
+        if (p_libro.prestado()) {
+            Prestamo prestamoActivo = p_libro.ultimoPrestamo();
+            if (prestamoActivo != null) {
+                prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());
+
+            } else {
+                // esto es para q no cree el objeto en caso que no exista
+                throw new RuntimeException("Error interno: Libro marcado como prestado sin un préstamo activo.");
+            }
+
         } else {
-            // esto es para q no cree el objeto en caso que no exista
-            throw new RuntimeException("Error interno: Libro marcado como prestado sin un préstamo activo.");
+            throw new LibroEnBiblioteca("El libro '" + p_libro.getTitulo() + "' no se puede devolver ya que se encuentra en la biblioteca\n");
         }
-        
-    } else {
-        throw new LibroEnBiblioteca("El libro '" + p_libro.getTitulo() + "' no se puede devolver ya que se encuentra en la biblioteca\n");
     }
-}
 
     /**
      * Devuelve la cantidad de un tipo de socio recibido por parametro
@@ -137,7 +137,7 @@ public class Biblioteca {
                 }
             }
         }
-        
+
         return prestamosVencidos;
     }
 
@@ -195,18 +195,13 @@ public class Biblioteca {
         return listado;
     }
 
-    public String listaDeDocentesResponsables(){
+    public String listaDeDocentesResponsables() {
         StringBuilder auxListado = new StringBuilder();
-        int n=0;
-        auxListado.append("Lista de Docentes Responsables:  \n");
-        for(Socio unDocente : this.docentesResponsables()){
-
-            auxListado.append("*"+unDocente.toString());
-
+        auxListado.append("Lista de Docentes Responsables:\n");
+        for (Socio unDocente : this.docentesResponsables()) {
+            auxListado.append("* ").append(unDocente.toString()).append("\n");
         }
-        String listado = auxListado.toString();
-
-        return listado;
+        return auxListado.toString();
     }
 
     // Prestar y Devolver Libro
