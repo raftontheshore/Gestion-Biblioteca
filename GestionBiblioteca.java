@@ -44,15 +44,6 @@ public class GestionBiblioteca {
         
         System.out.println("... Se realizaron 3 préstamos de ejemplo ...\n");
 
-        System.out.println("--- Cantidad de Socios por Tipo ---");
-        int cantEstudiantes = miBiblioteca.cantidadDeSociosPorTipos("Estudiante");
-        System.out.println("Cantidad de Socios del tipo Estudiante: " + cantEstudiantes);
-        
-        int cantDocentes = miBiblioteca.cantidadDeSociosPorTipos("Docente");
-        System.out.println("Cantidad de Socios del tipo Docente: " + cantDocentes);
-        System.out.println("**************************************\n");
-
-
         System.out.println("--- Lista de Docentes Responsables ---");
         System.out.println(miBiblioteca.listaDeDocentesResponsables());
         System.out.println("**************************************\n");
@@ -65,6 +56,15 @@ public class GestionBiblioteca {
         System.out.println(miBiblioteca.listarSocio()); 
         System.out.println("**************************************\n");
 
+        System.out.println("--- Cantidad de Socios por Tipo ---");
+        int cantEstudiantes = miBiblioteca.cantidadDeSociosPorTipos("Estudiante");
+        System.out.println("Cantidad de Socios del tipo Estudiante: " + cantEstudiantes);
+        
+        int cantDocentes = miBiblioteca.cantidadDeSociosPorTipos("Docente");
+        System.out.println("Cantidad de Socios del tipo Docente: " + cantDocentes);
+        System.out.println("**************************************\n");
+
+        
         Libro libroJava = miBiblioteca.getLibros().get(3); 
 
         System.out.println("--- Quién tiene 'Programando con JAVA' ---");
