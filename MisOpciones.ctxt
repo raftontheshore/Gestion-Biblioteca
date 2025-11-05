@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=MisOpciones
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MisOpciones\ here.\r\n\ \r\n\ @author\ Diosito\r\n
+comment1.params=
+comment1.target=MisOpciones()
+comment2.params=evt
+comment2.target=void\ jbOpcionMouseEntered(java.awt.event.MouseEvent)
+comment3.params=evt
+comment3.target=void\ jbOpcionMouseExited(java.awt.event.MouseEvent)
+numComments=4

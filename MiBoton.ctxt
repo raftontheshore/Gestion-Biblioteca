@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=MiBoton
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ MiBoton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=text
+comment1.target=MiBoton(java.lang.String)
+comment2.params=evt
+comment2.target=void\ jBotonMouseEntered(java.awt.event.MouseEvent)
+comment3.params=evt
+comment3.target=void\ jBotonMouseExited(java.awt.event.MouseEvent)
+numComments=4
