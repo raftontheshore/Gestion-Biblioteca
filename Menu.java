@@ -69,6 +69,27 @@ public class Menu extends JFrame {
     private MiBoton jbQuitarLibro; //boton de quitarLibro
     private MiBoton jbListarLibros; // listar los libros
     private Titulos jlTituloLibro;
+    
+    //Agregar libros
+    private MiPanelEscritorio jifAgregarLibro;// El panel principal del formulario
+    
+    private JTextField jtfTituloLibro;
+    private JTextField jtfEditorial;
+    private JTextField jtfEdicion;
+    private JTextField jtfAnio;
+    
+    
+    private MiBoton jbGuardarLibro;
+    
+    //quitar un libro
+    private MiPanelEscritorio jifQuitarLibro;
+    private JTextField jtfTituloQuitar;
+    private MiBoton jbQuitarLibroForm;
+    
+    //LISTAR LIBROS
+    private MiPanelEscritorio jifListarLibros;
+    private JTextArea unListadoLibros;
+    private MiBoton jbActualizarListaLibros;
     //  
 
     public Menu() {
@@ -221,6 +242,12 @@ public class Menu extends JFrame {
         configurarPanelAgregarSocio();
         configurarPanelQuitarSocio();
         configurarPanelListarSocios();
+        
+        //PANEL AGREGAR LIBROS / QUITAR LIBRO/ LISTAR LIBROS
+        configurarPanelAgregarLibro();
+        configurarQuitarLibro();
+        configurarPanelListarLibros();
+        
 
         //Settea el Layout de los paneles a null para ubicar con presicion los componente con coordenadas (x, y)
         this.jpCabecera.setLayout(null);
@@ -272,6 +299,10 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbAgregarLibro.jBotonMouseExited(evt);
                 }
+                public void mouseClicked(MouseEvent evt){
+                // jifAgregarLibro es la séptima pestaña (Índice 6)
+                jtpEscritorio.setSelectedIndex(7);
+                }
             });
         //AÑADIMOSBOTON DE QUITAR LIBRO
         this.jifLibro.add(jbQuitarLibro);
@@ -283,6 +314,9 @@ public class Menu extends JFrame {
 
                 public void mouseExited(MouseEvent evt){
                     jbQuitarLibro.jBotonMouseExited(evt); //
+                }
+                public void mouseClicked(MouseEvent evt){
+                jtpEscritorio.setSelectedIndex(8);
                 }
             });
 
@@ -296,6 +330,10 @@ public class Menu extends JFrame {
 
                 public void mouseExited(MouseEvent evt){
                     jbListarLibros.jBotonMouseExited(evt);
+                }
+                
+                public void mouseClicked(MouseEvent evt){
+                jtpEscritorio.setSelectedIndex(9);
                 }
             });
 
@@ -443,7 +481,10 @@ public class Menu extends JFrame {
         this.jtpEscritorio.addTab("tab5", jifQuitarSocio);
         this.jtpEscritorio.addTab("tab6", jifListarSocios);
         this.jtpEscritorio.addTab("tab7", jifLibro);// <-- Añade jifLibro
-        this.jtpEscritorio.addTab("tab8", jifAgregarPrestamo);
+        this.jtpEscritorio.addTab("tab8", jifAgregarLibro);
+        this.jtpEscritorio.addTab("tab9", jifQuitarLibro);
+        this.jtpEscritorio.addTab("tab10", jifListarLibros);
+        this.jtpEscritorio.addTab("tab11", jifAgregarPrestamo);
         this.jifLibro.setBounds(0, 0, 730, 420);
         //Añade el panel de opciones a la ventana principal
         this.getContentPane().add(jpOpciones);
@@ -471,7 +512,16 @@ public class Menu extends JFrame {
     private void jifAgregarSocioMouseClicked(MouseEvent evt) {                                           
         this.jtpEscritorio.setSelectedIndex(3);
     }
+    
+    //este agrego nuevo
+    private void jifLibroMouseClicked(MouseEvent evt){
+        this.jtpEscritorio.setSelectedIndex(6);
+    }
 
+    private void jifAgregarPrestamoMouseClicked(MouseEvent evt) {                                           
+        this.jtpEscritorio.setSelectedIndex(5);
+    }
+    
     /**
      * Crea, inicializa y posiciona todos los componentes 
      * para el panel de "Agregar Socio" (jifAgregarSocio).
@@ -825,14 +875,309 @@ public class Menu extends JFrame {
             });
 
     }
-
-    //este agrego nuevo
-    private void jifLibroMouseClicked(MouseEvent evt){
-        this.jtpEscritorio.setSelectedIndex(3);
+    /**
+     * AGREGAR LIBRO
+     */
+    private void configurarPanelAgregarLibro(){
+        //creo el panel principal
+        jifAgregarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifAgregarLibro.setLayout(null);
+        
+        //la fuente y el color
+        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
+        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
+        Color colorTexto = Color.WHITE;
+        
+        //copiando el de socio
+        int panelWidth = 730;
+        int desplazamiento = 40;
+        
+        //creamos y posicionamos los componente
+        //titulo
+        JLabel jlTituloForm = new JLabel("Agregar Nuevo Libro");
+        jlTituloForm.setFont(fontTitulo);
+        jlTituloForm.setForeground(colorTexto);
+        int tituloWidth = 300;
+        int tituloX = ((panelWidth - tituloWidth) / 2);
+        jlTituloForm.setBounds(tituloX, 20, tituloWidth, 30);
+        jifAgregarLibro.add(jlTituloForm);
+        
+        //COLUMNAS DE CAMPOS
+        int label_ancho = 200;
+        int field_ancho = 220;
+        int field_alto = 28;
+        int colum_gap = 60;
+        
+        int formBlockWidth = field_ancho + colum_gap + field_ancho;
+        int col1_x = ((panelWidth - formBlockWidth) / 2) - desplazamiento;
+        int col2_x = col1_x + field_ancho + colum_gap;
+        
+        int y_fila1_label = 90;
+        int y_fila1_field = 120;
+        int y_fila2_label = 160;
+        int y_fila2_field = 190;
+        
+        // titulo y editorial
+        JLabel jlTitulo1 = new JLabel("Titulo:");
+        jlTitulo1.setFont(fontLabel);
+        jlTitulo1.setForeground(colorTexto);
+        jlTitulo1.setBounds(col1_x, y_fila1_label, label_ancho, 25);
+        jifAgregarLibro.add(jlTitulo1);
+        
+        jtfTituloLibro = new JTextField();// (Usa la variable de clase)
+        jtfTituloLibro.setBounds(col1_x, y_fila1_field, field_ancho, field_alto);
+        jifAgregarLibro.add(jtfTituloLibro);
+        
+        //editorial
+        JLabel jlEditorial = new JLabel("Editorial:");
+        jlEditorial.setFont(fontLabel);
+        jlEditorial.setForeground(colorTexto);
+        jlEditorial.setBounds(col1_x, y_fila2_label, label_ancho, 25);
+        jifAgregarLibro.add(jlEditorial);
+        
+        jtfEditorial = new JTextField(); 
+        jtfEditorial.setBounds(col1_x, y_fila2_field, field_ancho, field_alto);
+        jifAgregarLibro.add(jtfEditorial);
+        
+        //columna derecha
+        JLabel jlEdicion = new JLabel("Edicion (numero): ");
+        jlEdicion.setFont(fontLabel);
+        jlEdicion.setForeground(colorTexto);
+        jlEdicion.setBounds(col2_x, y_fila1_label, label_ancho, 25);
+        jifAgregarLibro.add(jlEdicion);
+        
+        jtfEdicion = new JTextField();
+        jtfEdicion.setBounds(col2_x, y_fila1_field, field_ancho, field_alto);
+        jifAgregarLibro.add(jtfEdicion);
+        
+        //anio
+        JLabel jlAnio = new JLabel("Año (numero):");
+        jlAnio.setFont(fontLabel);
+        jlAnio.setForeground(colorTexto);
+        jlAnio.setBounds(col2_x, y_fila2_label, label_ancho, 25);
+        jifAgregarLibro.add(jlAnio);
+        
+        jtfAnio = new JTextField();
+        jtfAnio.setBounds(col2_x, y_fila2_field, field_ancho, field_alto);
+        jifAgregarLibro.add(jtfAnio);
+        
+        //Boton de guardar
+        int botonWidth = 150;
+        int botonHeight = 40;
+        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
+        jbGuardarLibro = new MiBoton("Guardar Libro");
+        jbGuardarLibro.setBounds(botonX, 270, botonWidth, botonHeight);
+        jifAgregarLibro.add(jbGuardarLibro);
+        
+        jbGuardarLibro.addMouseListener(new MouseAdapter(){
+           public void mouseClicked(MouseEvent evt){
+               //ESTA ES LA LÓGICA me FALTABA
+               try{
+                //obtener valore
+                String titulo = jtfTituloLibro.getText().trim();
+                String editorial= jtfEditorial.getText().trim();
+                String edicionTexto = jtfEdicion.getText().trim();
+                String anioTexto = jtfAnio.getText().trim();
+                
+                //validar campos vacios
+                if(titulo.isEmpty() || editorial.isEmpty() || edicionTexto.isEmpty() || anioTexto.isEmpty()){
+                  JOptionPane.showMessageDialog(null, "Complete todos los campos para agregar el Libro ");
+                  return;
+                }
+                // 3. Convertir a números
+                int edicion = Integer.parseInt(edicionTexto);
+                int anio = Integer.parseInt(anioTexto);
+                
+                // 4. Validar si el libro ya existe
+                // if (miBiblioteca.buscarLibro(titulo) != null) 
+                
+                //llamamos a biblioteca para agregar los libros
+                miBiblioteca.nuevoLibro(titulo, edicion, editorial, anio);
+                JOptionPane.showMessageDialog(null, "Libro agregado con éxito.");
+                
+                //limpiar campo
+                jtfTituloLibro.setText("");
+                jtfEditorial.setText("");
+                jtfEdicion.setText("");
+                jtfAnio.setText("");
+                
+                jtpEscritorio.setSelectedIndex(4);
+           }catch(NumberFormatException e){
+               JOptionPane.showMessageDialog(null, "Edición y Año deben ser numéricos.");
+           }
+        }
+           
+           public void mouseEntered(MouseEvent evt){
+               jbGuardarLibro.jBotonMouseEntered(evt);
+           }
+           public void mouseExited(MouseEvent evt){
+               jbGuardarLibro.jBotonMouseExited(evt);
+           }
+        });
     }
+    /**
+     * quitar libro 
+     */    
+    private void configurarQuitarLibro(){
+        //panel principal
+        jifQuitarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifQuitarLibro.setLayout(null);
+        
+        //fuentes
+        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
+        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
+        Color colorTexto = Color.WHITE;
+        
+        int panelWidth = 730;
+        int desplazamiento = 40;
+        
+        //titulo 
+        JLabel jlTituloForm = new JLabel("Quitar Libro del Catálogo");
+        jlTituloForm.setFont(fontTitulo);
+        jlTituloForm.setForeground(colorTexto);
+        int tituloWidth = 300;
+        int tituloX = ((panelWidth - tituloWidth) / 2);
+        jlTituloForm.setBounds(tituloX, 40 , tituloWidth, 30);
+        jifQuitarLibro.add(jlTituloForm);
+        
+        //titulo del libr
+        JLabel jlTituloQuitar = new JLabel("Titulo del libro:");
+        jlTituloQuitar.setFont(fontLabel);
+        jlTituloQuitar.setForeground(colorTexto);
+        int labelWidth = 200;
+        int fieldWidth = 220;
+        int fieldHeight = 28;
+        int posX = ((panelWidth - fieldWidth) / 2) - desplazamiento;
+        
+        jlTituloQuitar.setBounds(posX, 120, labelWidth, 25);
+        jifQuitarLibro.add(jlTituloQuitar);
+        
+        jtfTituloQuitar = new JTextField();
+        jtfTituloQuitar.setBounds(posX, 150, fieldWidth, fieldHeight);
+        jifQuitarLibro.add(jtfTituloQuitar);
+        
+        //botono quitar
+        int botonWidth = 150;
+        int botonHeight = 40;
+        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
+        jbQuitarLibroForm = new MiBoton("Quitar Libro");
+        jbQuitarLibroForm.setBounds(botonX, 230, botonWidth, botonHeight);
+        jifQuitarLibro.add(jbQuitarLibroForm);
+        
+        //ahora lo que seria la accion de quitar el libro
+        jbQuitarLibroForm.addMouseListener(new MouseAdapter(){
+           public void mouseClicked(MouseEvent evt){
+               //vamos a eliminar libro por su titulo
+               String titulo = jtfTituloQuitar.getText().trim();
+               
+               //verificamos si esta vacio
+               if(titulo.isEmpty()){
+                   JOptionPane.showMessageDialog(null, "Ingrese un titulo valido");
+                   return;
+               }
 
-    private void jifAgregarPrestamoMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(4);
+               //buscamos el libro
+               Libro libro = null;
+               for(Libro unLibro : miBiblioteca.getLibros()){
+                   if(titulo.equalsIgnoreCase(unLibro.getTitulo())){
+                       libro = unLibro;
+                   }
+               }
+               //validamos que exista el libro
+               if(libro == null){
+                   JOptionPane.showMessageDialog(null,"No existe un libro con ese Título.");
+                   return;
+               }
+               //validamos que el libro no este prestado
+               if(libro.prestado()){
+                   JOptionPane.showMessageDialog(null, "El libro '" + libro.getTitulo() + " no se puede eliminar porque está PRESTADO.");
+                    return;
+                }
+               // eliminamos el libro
+               miBiblioteca.quitarLibro(libro);
+               JOptionPane.showMessageDialog(null, "Libro quitado con exito...");
+               
+               jtfTituloQuitar.setText(""); // Limpia el campo
+               
+           }
+           public void mouseEntered(MouseEvent evt){
+               jbQuitarLibroForm.jBotonMouseEntered(evt);
+           }
+           
+           public void mouseExited(MouseEvent evt){
+               jbQuitarLibroForm.jBotonMouseExited(evt);
+           }
+        });
+        
+    }
+    
+    
+    /**
+     * LISTADO DE LIBROS
+     */
+    private void configurarPanelListarLibros(){
+        jifListarLibros = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifListarLibros.setLayout(null);
+        
+        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
+        Color colorTexto = Color.WHITE;
+        
+        int panelWidth = 730;
+        int desplazamiento = 40;
+        
+        //Titulo
+        JLabel jlTitulo = new JLabel("Listado de libros");
+        jlTitulo.setFont(fontTitulo);
+        jlTitulo.setForeground(colorTexto);
+        int tituloWidth = 300;
+        int titulox = ((panelWidth - tituloWidth) / 2);
+        jlTitulo.setBounds(titulox, 20, tituloWidth, 30);
+        jifListarLibros.add(jlTitulo);
+        
+        //lugar donde muestro el listado
+        unListadoLibros = new JTextArea();
+        unListadoLibros.setEditable(false);
+        unListadoLibros.setOpaque(false);
+        unListadoLibros.setForeground(colorTexto);
+        unListadoLibros.setFont(new Font("Corbel", Font.PLAIN, 14));
+        unListadoLibros.setLineWrap(true);
+        unListadoLibros.setWrapStyleWord(true);
+        
+        //para scrollear
+        JScrollPane scroll = new JScrollPane(unListadoLibros);
+        scroll.setBounds(70, 80, 500, 220);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        jifListarLibros.add(scroll);
+        
+        //boton actualizar
+        jbActualizarListaLibros = new MiBoton("Actualizar lista");
+        int botonWidth = 150;
+        int botonHeight = 40;
+        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
+        jbActualizarListaLibros.setBounds(botonX, 310, botonWidth, botonHeight);
+       jifListarLibros.add(jbActualizarListaLibros);
+       
+       jbActualizarListaLibros.addMouseListener(new MouseAdapter(){
+          public void mouseClicked(MouseEvent evt){
+              
+            //le mandamos listar libro y lo mostramos por el jtext
+              unListadoLibros.setText(miBiblioteca.listaDeLibro());
+              //q el cursor vuelva arriba
+              unListadoLibros.setCaretPosition(0);
+              
+              
+          }
+          
+          public void mouseEntered(MouseEvent evt){
+              jbActualizarListaLibros.jBotonMouseEntered(evt);
+          }
+          
+          public void mouseExited(MouseEvent evt){
+              jbActualizarListaLibros.jBotonMouseExited(evt);
+          }
+       });
+       
     }
 
     private void iniciarBiblioteca(){
