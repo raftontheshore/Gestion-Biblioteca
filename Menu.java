@@ -148,7 +148,10 @@ public class Menu extends JFrame {
                 }
 
                 public void mouseClicked(MouseEvent evt) {
-                    jtpEscritorio.setSelectedIndex(3); 
+                    int index = jtpEscritorio.indexOfComponent(jifAgregarSocio);
+                    if (index != -1) {
+                        jtpEscritorio.setSelectedIndex(index);
+                    } 
                 }
             });
 
@@ -163,7 +166,10 @@ public class Menu extends JFrame {
                 }
 
                 public void mouseClicked(MouseEvent evt) {
-                    jtpEscritorio.setSelectedIndex(4); 
+                    int index = jtpEscritorio.indexOfComponent(jifQuitarSocio);
+                    if (index != -1) {
+                        jtpEscritorio.setSelectedIndex(index);
+                    } 
                 }
             });
 
