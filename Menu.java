@@ -296,7 +296,7 @@ public class Menu extends JFrame {
         //Settea los atributos del texto en el panel interno Inicio     
         this.jtaTextoInicio.setFont(new Font("Corbel", 1, 40));
         this.jtaTextoInicio.setForeground(Color.white);
-        this.jtaTextoInicio.setText("                  Bienvenido a\nSistema de gestion biblioteca");
+        this.jtaTextoInicio.setText("                  Bienvenido a\nSistema de Gestión Biblioteca");
         this.jtaTextoInicio.setOpaque(false);
         this.jifInicio.add(jtaTextoInicio);
         this.jtaTextoInicio.setBounds(50, 100, 1000, 100);
