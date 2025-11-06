@@ -36,6 +36,17 @@ public class Menu extends JFrame {
     private Titulos jlTituloSocio;
     private Titulos jlTituloPrestamo;
     //  
+    //agregado mio DE LIBRO 
+    private MiPanelEscritorio jifLibro; //Este es el panel o ventana interna principal que contiene todo lo relacionado con los socios. Cuando el usuario hace clic en jbOpcionSocios
+    private MiIcono jlArgegarLibro;
+    private JTextArea jtaTextoLibro;//s el JTextArea que se usa como título ("Libro") dentro del panel jifLibros.
+    private MiIcono jlAgregarLibros; //Un icono que el usuario puede pulsar para añadir un nuevo libro
+    private MiIcono jlQuitarLibro; // lo mismo que agregar
+    private MiIcono jlListarLibros; // icono para listar
+    private MiBoton jbAgregarLibro;
+    private MiBoton jbQuitarLibro; //boton de quitarLibro
+    private MiBoton jbListarLibros; // listar los libros
+    //  
 
     public Menu() {
         iniciarComponentes();
@@ -67,6 +78,18 @@ public class Menu extends JFrame {
         this.jlRegistraDevolucion = new MiIcono("/imagenes/Devolver_Libro.png");
         this.jlListarPrestamos = new MiIcono("/imagenes/Lista_Prestamos.png");
         this.jpCabecera = new MiPanelEscritorio("/imagenes/Header.jpeg");
+        
+        //lo que SE AGREGO DE LIBRO
+        this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jtaTextoLibro = new JTextArea();
+        this.jlAgregarLibros = new MiIcono("/imagenes/Agregar_Libro.png");// por ahora dejo los mismos que socio y despues busco uno mejor
+        this.jlQuitarLibro = new MiIcono("/imagenes/Quitar_Libro.png"); // Equivalente a "Borrar_Socio"
+        this.jlListarLibros = new MiIcono("/imagenes/Lista_Libros.png");
+        this.jbAgregarLibro = new MiBoton("Agregar Libro");
+        this.jbQuitarLibro = new MiBoton("Quitar Libro");
+        this.jbListarLibros = new MiBoton("Listar Libros");
+        //_--------------------------------------------
+
 
         //Settea los atributos de la ventana principal
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -91,6 +114,8 @@ public class Menu extends JFrame {
         this.jifInicio.setLayout(null);
         this.jifSocio.setLayout(null);
         this.jifPrestamo.setLayout(null);
+        //setteo de libro con el layout
+        this.jifLibro.setLayout(null);
 
         //Añade el titulo a la cabecera y settea su ubicacion y tamaño
         this.jpCabecera.add(jlTitulo);
@@ -132,6 +157,58 @@ public class Menu extends JFrame {
                     jbAgregarSocio.jBotonMouseExited(evt);
                 }
             });
+        //LO QUE se AGREGO DE LIBRO
+        
+        // Añade icono de agregar libro
+        this.jifLibro.add(jlAgregarLibros);
+        this.jlAgregarLibros.setBounds(60, 100, 64, 64); 
+        
+        //Añade icono de quitar libro
+        this.jifLibro.add(jlQuitarLibro);
+        this.jlQuitarLibro.setBounds(260, 100, 64, 64);
+        
+        //Añade icono de listado de libro
+        this.jifLibro.add(jlListarLibros);
+        this.jlListarLibros.setBounds(460, 100, 64, 64);
+        
+        
+        //Añade boton de agregar Libro
+        this.jifLibro.add(jbAgregarLibro);
+        this.jbAgregarLibro.setBounds(40, 200, 100, 40);
+        this.jbAgregarLibro.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt){
+                jbAgregarLibro.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbAgregarLibro.jBotonMouseExited(evt);
+            }
+        });
+        //AÑADIMOSBOTON DE QUITAR LIBRO
+        this.jifLibro.add(jbQuitarLibro);
+        this.jbQuitarLibro.setBounds(240, 200, 100, 40);
+        this.jbQuitarLibro.addMouseListener(new MouseAdapter(){
+            public void mouseEntered(MouseEvent evt){
+                jbQuitarLibro.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbQuitarLibro.jBotonMouseExited(evt); //
+            }
+        });
+        
+        //AÑADIMOS BOTON DE LISTAR LIBROS
+        this.jifLibro.add(jbListarLibros);
+        this.jbListarLibros.setBounds(440, 200, 100, 40);
+        this.jbListarLibros.addMouseListener(new MouseAdapter(){
+            public void mouseEntered(MouseEvent evt){
+                jbListarLibros.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbListarLibros.jBotonMouseExited(evt);
+            }
+        });
 
         //Settea los atributos del texto en el panel interno Inicio     
         this.jtaTextoInicio.setFont(new Font("Corbel", 1, 40));
@@ -233,6 +310,11 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt) {
                     jbOpcionLibros.jbOpcionMouseExited(evt);
                 }
+                
+                //LO QUE LE AGREGO 
+                public void mouseClicked(MouseEvent evt){
+                    jifLibroMouseClicked(evt);// Llama a la función de "Libro"
+                }
             });
             
         //Inicializa el texto de la opcion prestamos y añade el boton al panel de opciones
@@ -259,6 +341,8 @@ public class Menu extends JFrame {
         this.jtpEscritorio.addTab("tab1", jifInicio);// Agrega una ventana interna al panel de contenido
         this.jtpEscritorio.addTab("tab2", jifSocio);
         this.jtpEscritorio.addTab("tab3", jifPrestamo);
+        this.jtpEscritorio.addTab("tab4", jifLibro);// <-- Añade jifLibro
+        this.jifLibro.setBounds(0, 0, 730, 420);
         //Añade el panel de opciones a la ventana principal
         this.getContentPane().add(jpOpciones);
         this.jpOpciones.setBounds(0, 90, 170, 420);
@@ -280,5 +364,10 @@ public class Menu extends JFrame {
     
     private void jifPrestamoMouseClicked(MouseEvent evt) {                                           
         this.jtpEscritorio.setSelectedIndex(2);
+    }
+    
+    //este agrego nuevo
+    private void jifLibroMouseClicked(MouseEvent evt){
+        this.jtpEscritorio.setSelectedIndex(3);
     }
 }
