@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 /**
  * Write a description of class Menu here.
  * 
@@ -9,7 +10,7 @@ import javax.swing.*;
  */
 
 public class Menu extends JFrame {
-
+    private Biblioteca miBiblioteca;
     // Declaracion de variables - no modificar
     private MisOpciones jbOpcionInicio;
     private MisOpciones jbOpcionLibros;
@@ -31,6 +32,7 @@ public class Menu extends JFrame {
     private MiPanelEscritorio jifInicio;
     private MiPanelEscritorio jifSocio;
     private MiPanelEscritorio jifPrestamo;
+    private MiPanelEscritorio jifAgregarPrestamo;
     private JPanel jpOpciones;
     private JTextArea jtaTextoInicio;
     private Titulos jlTituloSocio;
@@ -50,9 +52,22 @@ public class Menu extends JFrame {
     private JLabel jlCarreraAsignatura; 
     private JTextField jtfCarreraAsignatura;
     private MiBoton jbGuardarSocio; 
+    private Titulos jlTituloAgregarPrestamo;
+    //  
+    //agregado mio DE LIBRO 
+    private MiPanelEscritorio jifLibro; //Este es el panel o ventana interna principal que contiene todo lo relacionado con los socios. Cuando el usuario hace clic en jbOpcionSocios
+    private MiIcono jlAgregarLibros; //Un icono que el usuario puede pulsar para añadir un nuevo libro
+    private MiIcono jlQuitarLibro; // lo mismo que agregar
+    private MiIcono jlListarLibros; // icono para listar
+    private MiBoton jbAgregarLibro;
+    private MiBoton jbQuitarLibro; //boton de quitarLibro
+    private MiBoton jbListarLibros; // listar los libros
+    private Titulos jlTituloLibro;
+    //  
 
     public Menu() {
-        iniciarComponentes();
+        this.iniciarBiblioteca();
+        this.iniciarComponentes();
     }
 
     private void iniciarComponentes() {
@@ -61,6 +76,7 @@ public class Menu extends JFrame {
         this.jifInicio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jifSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jifPrestamo = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifAgregarPrestamo = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jpOpciones = new JPanel();
         this.jbOpcionSocios = new MisOpciones();
         this.jbAgregarSocio = new MiBoton("Agregar Socio");
@@ -73,6 +89,7 @@ public class Menu extends JFrame {
         this.jtaTextoInicio = new JTextArea();
         this.jlTituloSocio = new Titulos("Socios");
         this.jlTituloPrestamo = new Titulos("Prestamos");
+        this.jlTituloAgregarPrestamo = new Titulos("Agregar prestamo");
         this.jtpEscritorio = new JTabbedPane();
         this.jlAgregarSocio = new MiIcono("/imagenes/Agregar_Socio.png");
         this.jlBorrarSocio = new MiIcono("/imagenes/Borrar_Socio.png");
@@ -81,6 +98,17 @@ public class Menu extends JFrame {
         this.jlRegistraDevolucion = new MiIcono("/imagenes/Devolver_Libro.png");
         this.jlListarPrestamos = new MiIcono("/imagenes/Lista_Prestamos.png");
         this.jpCabecera = new MiPanelEscritorio("/imagenes/Header.jpeg");
+        
+        //lo que SE AGREGO DE LIBRO
+        this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jlTituloLibro = new Titulos("Libros");
+        this.jlAgregarLibros = new MiIcono("/imagenes/Agregar_Libro.png");// por ahora dejo los mismos que socio y despues busco uno mejor
+        this.jlQuitarLibro = new MiIcono("/imagenes/Quitar_Libro.png"); // Equivalente a "Borrar_Socio"
+        this.jlListarLibros = new MiIcono("/imagenes/Lista_Libros.png");
+        this.jbAgregarLibro = new MiBoton("Agregar Libro");
+        this.jbQuitarLibro = new MiBoton("Quitar Libro");
+        this.jbListarLibros = new MiBoton("Listar Libros");
+        //_--------------------------------------------
 
         //Settea los atributos de la ventana principal
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,7 +124,7 @@ public class Menu extends JFrame {
         this.jlTitulo.setIconTextGap(10);//Settea el espacio que separa al icono del texto
         this.jlTitulo.setFont(new Font("Corbel", 1, 36));//Settea la fuente y el tamaño
         this.jlTitulo.setForeground(new Color(100, 100, 100));//Settea el color de la fuente
-        this.jlTitulo.setText("Biblioteca Central");
+        this.jlTitulo.setText(this.miBiblioteca.getNombre());
 
         // PANEL AGREGAR SOCIOS LLAMADA
         configurarPanelAgregarSocio();
@@ -108,6 +136,9 @@ public class Menu extends JFrame {
         this.jifInicio.setLayout(null);
         this.jifSocio.setLayout(null);
         this.jifPrestamo.setLayout(null);
+        this.jifAgregarPrestamo.setLayout(null);
+        //setteo de libro con el layout
+        this.jifLibro.setLayout(null);
 
         //Añade el titulo a la cabecera y settea su ubicacion y tamaño
         this.jpCabecera.add(jlTitulo);
@@ -153,6 +184,58 @@ public class Menu extends JFrame {
                     jtpEscritorio.setSelectedIndex(3); 
                 }
             });
+        //LO QUE se AGREGO DE LIBRO
+        
+        // Añade icono de agregar libro
+        this.jifLibro.add(jlAgregarLibros);
+        this.jlAgregarLibros.setBounds(60, 100, 64, 64); 
+        
+        //Añade icono de quitar libro
+        this.jifLibro.add(jlQuitarLibro);
+        this.jlQuitarLibro.setBounds(260, 100, 64, 64);
+        
+        //Añade icono de listado de libro
+        this.jifLibro.add(jlListarLibros);
+        this.jlListarLibros.setBounds(460, 100, 64, 64);
+        
+        
+        //Añade boton de agregar Libro
+        this.jifLibro.add(jbAgregarLibro);
+        this.jbAgregarLibro.setBounds(25, 200, 130, 40);
+        this.jbAgregarLibro.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt){
+                jbAgregarLibro.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbAgregarLibro.jBotonMouseExited(evt);
+            }
+        });
+        //AÑADIMOSBOTON DE QUITAR LIBRO
+        this.jifLibro.add(jbQuitarLibro);
+        this.jbQuitarLibro.setBounds(225, 200, 130, 40);
+        this.jbQuitarLibro.addMouseListener(new MouseAdapter(){
+            public void mouseEntered(MouseEvent evt){
+                jbQuitarLibro.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbQuitarLibro.jBotonMouseExited(evt); //
+            }
+        });
+        
+        //AÑADIMOS BOTON DE LISTAR LIBROS
+        this.jifLibro.add(jbListarLibros);
+        this.jbListarLibros.setBounds(425, 200, 130, 40);
+        this.jbListarLibros.addMouseListener(new MouseAdapter(){
+            public void mouseEntered(MouseEvent evt){
+                jbListarLibros.jBotonMouseEntered(evt);
+            }
+            
+            public void mouseExited(MouseEvent evt){
+                jbListarLibros.jBotonMouseExited(evt);
+            }
+        });
 
         //Settea los atributos del texto en el panel interno Inicio     
         this.jtaTextoInicio.setFont(new Font("Corbel", 1, 40));
@@ -166,6 +249,14 @@ public class Menu extends JFrame {
         this.jifSocio.add(jlTituloSocio);
         this.jifPrestamo.add(jlTituloPrestamo);
 
+        
+        //Añade el titulo a la pestaña de libro
+        this.jifLibro.add(jlTituloLibro);
+        
+        //Añade el titulo a la pestaña de prestamos
+        this.jifPrestamo.add(jlTituloPrestamo);
+        this.jifAgregarPrestamo.add(jlTituloAgregarPrestamo);
+        
         //Añade botones a la pestaña de prestamos
         this.jifPrestamo.add(jbAgregarPrestamo);
         this.jbAgregarPrestamo.setBounds(25, 200, 130, 40);
@@ -176,6 +267,10 @@ public class Menu extends JFrame {
 
                 public void mouseExited(MouseEvent evt) {
                     jbAgregarPrestamo.jBotonMouseExited(evt);
+                }
+                
+                public void mouseClicked(MouseEvent evt){
+                    jifAgregarPrestamoMouseClicked(evt);
                 }
             });
         this.jifPrestamo.add(jbRegistraDevolucion);
@@ -252,6 +347,11 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt) {
                     jbOpcionLibros.jbOpcionMouseExited(evt);
                 }
+                
+                //LO QUE LE AGREGO 
+                public void mouseClicked(MouseEvent evt){
+                    jifLibroMouseClicked(evt);// Llama a la función de "Libro"
+                }
             });
 
         //Inicializa el texto de la opcion prestamos y añade el boton al panel de opciones
@@ -279,6 +379,9 @@ public class Menu extends JFrame {
         this.jtpEscritorio.addTab("tab2", jifSocio);
         this.jtpEscritorio.addTab("tab3", jifPrestamo);
         this.jtpEscritorio.addTab("tab4", jifAgregarSocio); 
+        this.jtpEscritorio.addTab("tab4", jifLibro);// <-- Añade jifLibro
+        this.jtpEscritorio.addTab("tab5", jifAgregarPrestamo);
+        this.jifLibro.setBounds(0, 0, 730, 420);
         //Añade el panel de opciones a la ventana principal
         this.getContentPane().add(jpOpciones);
         this.jpOpciones.setBounds(0, 90, 170, 420);
@@ -463,4 +566,39 @@ public class Menu extends JFrame {
             });
     }
 
+    
+    //este agrego nuevo
+    private void jifLibroMouseClicked(MouseEvent evt){
+        this.jtpEscritorio.setSelectedIndex(3);
+    }
+    
+    private void jifAgregarPrestamoMouseClicked(MouseEvent evt) {                                           
+        this.jtpEscritorio.setSelectedIndex(4);
+    }
+    
+    private void iniciarBiblioteca(){
+        this.miBiblioteca = new Biblioteca("Biblioteca Central");
+        // Carga de socios docentes
+        this.miBiblioteca.nuevoSocioDocente(14524782, "Juan Perez", 5, "Informática");
+        this.miBiblioteca.nuevoSocioDocente(17982110, "Juan Fernández", 5, "Matemática");
+        this.miBiblioteca.nuevoSocioDocente(10912002, "María Alegre", 5, "Letras");
+        // Carga de socios estudiantes
+        this.miBiblioteca.nuevoSocioEstudiante(28987498, "Francisco Paenza", 20, "Ingeniería");
+        this.miBiblioteca.nuevoSocioEstudiante(31987123, "Cesar Milstein", 20, "Medicina");
+        // Carga de libros
+        this.miBiblioteca.nuevoLibro("JAVA. Como Programar", 9, "Pearson", 2014);
+        this.miBiblioteca.nuevoLibro("Longman. Diccionario Pocket", 1, "Longman", 2010);
+        this.miBiblioteca.nuevoLibro("Vivir para contarla", 1, "Sudamericana", 2002);
+        this.miBiblioteca.nuevoLibro("Programando con JAVA", 1, "Editorial X", 2020); 
+        // Se realizan algunos préstamos de libros
+        Socio socio1 = this.miBiblioteca.buscarSocio(14524782);
+        Libro libro1 = this.miBiblioteca.getLibros().get(1); 
+        if (socio1 != null && libro1 != null) {this.miBiblioteca.prestarLibro(new GregorianCalendar(), socio1, libro1);}
+        Socio socio2 = miBiblioteca.buscarSocio(28987498);
+        Libro libro2 = miBiblioteca.getLibros().get(3); 
+        if (socio2 != null && libro2 != null) {this.miBiblioteca.prestarLibro(new GregorianCalendar(), socio2, libro2);}
+        Socio socio3 = miBiblioteca.buscarSocio(31987123);
+        Libro libro3 = miBiblioteca.getLibros().get(2); 
+        if (socio3 != null && libro3 != null) {this.miBiblioteca.prestarLibro(new GregorianCalendar(), socio3, libro3);}
+    }
 }
