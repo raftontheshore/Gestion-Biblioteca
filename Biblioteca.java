@@ -188,7 +188,10 @@ public class Biblioteca {
             auxListado.append(entrada.getValue().toString());
             auxListado.append("\n");
         }
-        return auxListado.toString();
+        return auxListado.toString() + "**************************************\n" + 
+       "Cantidad de Socios del tipo Estudiante: " + this.cantidadDeSociosPorTipos("Estudiante") + "\n" +
+       "Cantidad de Socios del tipo Docente: " + this.cantidadDeSociosPorTipos("Docente") + "\n" +
+       "************************************** ";
     }
 
     /**
