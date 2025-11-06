@@ -39,13 +39,13 @@ public class Menu extends JFrame {
     //agregado mio DE LIBRO 
     private MiPanelEscritorio jifLibro; //Este es el panel o ventana interna principal que contiene todo lo relacionado con los socios. Cuando el usuario hace clic en jbOpcionSocios
     private MiIcono jlArgegarLibro;
-    private JTextArea jtaTextoLibro;//s el JTextArea que se usa como título ("Libro") dentro del panel jifLibros.
     private MiIcono jlAgregarLibros; //Un icono que el usuario puede pulsar para añadir un nuevo libro
     private MiIcono jlQuitarLibro; // lo mismo que agregar
     private MiIcono jlListarLibros; // icono para listar
     private MiBoton jbAgregarLibro;
     private MiBoton jbQuitarLibro; //boton de quitarLibro
     private MiBoton jbListarLibros; // listar los libros
+    private Titulos jlTituloLibro;
     //  
 
     public Menu() {
@@ -81,7 +81,7 @@ public class Menu extends JFrame {
         
         //lo que SE AGREGO DE LIBRO
         this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        this.jtaTextoLibro = new JTextArea();
+        this.jlTituloLibro = new Titulos("Libros");
         this.jlAgregarLibros = new MiIcono("/imagenes/Agregar_Libro.png");// por ahora dejo los mismos que socio y despues busco uno mejor
         this.jlQuitarLibro = new MiIcono("/imagenes/Quitar_Libro.png"); // Equivalente a "Borrar_Socio"
         this.jlListarLibros = new MiIcono("/imagenes/Lista_Libros.png");
@@ -220,6 +220,9 @@ public class Menu extends JFrame {
 
         //Añade el titulo a la pestaña de socios
         this.jifSocio.add(jlTituloSocio);
+        
+        //Añade el titulo a la pestaña de libro
+        this.jifLibro.add(jlTituloLibro);
         
         //Añade el titulo a la pestaña de prestamos
         this.jifPrestamo.add(jlTituloPrestamo);
