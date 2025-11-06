@@ -768,7 +768,7 @@ public class Menu extends JFrame {
         jbQuitarSocio.setBounds(botonX, 230, botonWidth, botonHeight);
         jifQuitarSocio.add(jbQuitarSocio);
 
-        // 5. Eventos Botón (lógica tuya luego)
+        // 5. Eventos Botón 
         jbQuitarSocio.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
                     try {
