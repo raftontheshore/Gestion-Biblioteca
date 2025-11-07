@@ -1,5 +1,4 @@
 import java.util.*;
-
 /**
  * Clase que representa una Biblioteca que administra socios, libros y préstamos.
  * Permite registrar nuevos socios (docentes o estudiantes), agregar libros,
@@ -131,7 +130,20 @@ public class Biblioteca {
         if (p_libro.prestado()) {
             Prestamo prestamoActivo = p_libro.ultimoPrestamo();
             if (prestamoActivo != null) {
-                prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());
+                for (Libro unLibro : this.getLibros()) {
+                    if (unLibro.getPrestamos().contains(prestamoActivo)) {
+                        unLibro.quitarPrestamo(prestamoActivo);
+                    }
+                }
+                for(Map.Entry<Integer, Socio> unSocio : this.getSocios().entrySet()){
+                    for (Prestamo p : unSocio.getValue().getPrestamos()) {
+                        if (p.equals(prestamoActivo)) {
+                            unSocio.getValue().quitarPrestamo(prestamoActivo);
+                            break;
+                        }
+                    }
+                }
+                prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());       
             } else {
                 throw new RuntimeException("Error interno: Libro marcado como prestado sin un préstamo activo.");
             }
@@ -161,9 +173,9 @@ public class Biblioteca {
      * 
      * @return Lista de préstamos vencidos
      */
-    public ArrayList prestamosVencidos(){
+    public ArrayList<Prestamo> prestamosVencidos(){
         Calendar fechaActual = Calendar.getInstance();
-        ArrayList prestamosVencidos = new ArrayList();
+        ArrayList<Prestamo> prestamosVencidos = new ArrayList<Prestamo>();
         for(Map.Entry<Integer,Socio> entrada : this.getSocios().entrySet()){
             for(Prestamo unPrestamo : entrada.getValue().getPrestamos()){
                 if(unPrestamo.vencido(fechaActual)){
@@ -189,9 +201,9 @@ public class Biblioteca {
             auxListado.append("\n");
         }
         return auxListado.toString() + "**************************************\n" + 
-       "Cantidad de Socios del tipo Estudiante: " + this.cantidadDeSociosPorTipos("Estudiante") + "\n" +
-       "Cantidad de Socios del tipo Docente: " + this.cantidadDeSociosPorTipos("Docente") + "\n" +
-       "************************************** ";
+        "Cantidad de Socios del tipo Estudiante: " + this.cantidadDeSociosPorTipos("Estudiante") + "\n" +
+        "Cantidad de Socios del tipo Docente: " + this.cantidadDeSociosPorTipos("Docente") + "\n" +
+        "************************************** ";
     }
 
     /**
@@ -245,8 +257,9 @@ public class Biblioteca {
     public boolean prestarLibro(Calendar p_fechaRetiro, Socio p_socio, Libro p_libro) {
         if (p_socio != null) {
             if (p_socio.puedePedir() && !p_libro.prestado()) {
-                p_socio.agregarPrestamo(new Prestamo(p_fechaRetiro, p_libro, p_socio));
-                p_libro.agregarPrestamo(new Prestamo(p_fechaRetiro, p_libro, p_socio));
+                Prestamo nuevo = new Prestamo(p_fechaRetiro, p_libro, p_socio);
+                p_socio.agregarPrestamo(nuevo);
+                p_libro.agregarPrestamo(nuevo);
                 return true;
             } else {
                 return false;

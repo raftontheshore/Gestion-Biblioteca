@@ -2,10 +2,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class Menu extends JFrame {
+    //Declaracion de biblioteca
     private Biblioteca miBiblioteca;
-    // Declaracion de variables - no modificar
+
+    //Botones del panel de opciones
     private MisOpciones jbOpcionInicio;
     private MisOpciones jbOpcionLibros;
     private MisOpciones jbOpcionPrestamos;
@@ -14,23 +18,39 @@ public class Menu extends JFrame {
     // Socios
     private MiIcono jlAgregarPrestamo;
     private MiIcono jlRegistraDevolucion;
-    private MiIcono jlListarPrestamos;
     private JTextArea taListadoSocios;
 
     private MiBoton jbAgregarPrestamo;
     private MiBoton jbRegistraDevolucion;
-    private MiBoton jbListarPrestamos;
     private JLabel jlTitulo;
     private JTabbedPane jtpEscritorio;
     private MiPanelEscritorio jpCabecera;
     private MiPanelEscritorio jifInicio;
     private MiPanelEscritorio jifSocio;
     private MiPanelEscritorio jifPrestamo;
-    private MiPanelEscritorio jifAgregarPrestamo;
+
     private JPanel jpOpciones;
     private JTextArea jtaTextoInicio;
     private Titulos jlTituloSocio;
     private Titulos jlTituloPrestamo;
+
+    private MiPanelEscritorio jifAgregarPrestamo;
+    private Titulos jlTituloAgregarPrestamo;
+    private MiEtiqueta jlFechaRetiro;
+    private MiEtiqueta jlTituloLibroRetiro;
+    private MiEtiqueta jlDniSocioRetiro;
+    private JTextField jtfFechaRetiro;
+    private JTextField jtfTituloLibroRetiro;
+    private JTextField jtfDniSocioRetiro;
+    private MiBoton jbRegistrarPrestamo;
+
+    private MiPanelEscritorio jifRegistrarDevolucion;
+    private Titulos jlTituloRegistrarDevolucion;
+    private MiEtiqueta jlFechaDevolucion;
+    private MiEtiqueta jlTituloLibroDevuelto;
+    private JTextField jtfFechaDevolucion;
+    private JTextField jtfTituloLibroDevuelto;
+    private MiBoton jbRegistrarLibroDevolucion;
 
     // Iconos Socio
     private MiBoton jbAgregarSocio;
@@ -40,7 +60,7 @@ public class Menu extends JFrame {
     private MiIcono jlAgregarSocio;
     private MiIcono jlQuitarSocio;
     private MiIcono jlListarSocios;
-    
+
     //icono docente responsable
     private MiIcono jlDocenteResponsable;
     private MiBoton jbDocenteResponsable;
@@ -52,24 +72,22 @@ public class Menu extends JFrame {
     private JRadioButton rbDocente;
     private JRadioButton rbAlumno;
     private ButtonGroup bgTipoSocio;
-    private JLabel jlDNI;
+    private MiEtiqueta jlDNI;
     private JTextField jtfDNI;
     private JTextField jtfDNIQuitar;
-    private JLabel jlNombre;
+    private MiEtiqueta jlNombre;
     private JTextField jtfNombre;
-    private JLabel jlDiasPrestamo;
+    private MiEtiqueta jlDiasPrestamo;
     private JTextField jtfDiasPrestamo;
-    private JLabel jlCarreraAsignatura; 
+    private MiEtiqueta jlCarreraAsignatura; 
     private JTextField jtfCarreraAsignatura;
     private MiBoton jbGuardarSocio; 
-    private Titulos jlTituloAgregarPrestamo;
-    
+
     //componentes docente responsable
     private JTextArea elListadoDocenteResponsable;
     private MiPanelEscritorio jifDocenteResponsable;
     private JTextArea unListadoDocentesR;
     private MiBoton jbActualizarListaDocenRes;
-    
 
     //agregado mio DE LIBRO 
     private MiPanelEscritorio jifLibro; //Este es el panel o ventana interna principal que contiene todo lo relacionado con los socios. Cuando el usuario hace clic en jbOpcionSocios
@@ -82,28 +100,26 @@ public class Menu extends JFrame {
     private MiBoton jbListarLibros; // listar los libros
     private MiBoton jbBuscarLibros; //BOTON PARA BUSCAR
     private Titulos jlTituloLibro;
-    
+
     //Agregar libros
     private MiPanelEscritorio jifAgregarLibro;// El panel principal del formulario
-    
+
     private JTextField jtfTituloLibro;
     private JTextField jtfEditorial;
     private JTextField jtfEdicion;
     private JTextField jtfAnio;
-    
-    
+
     private MiBoton jbGuardarLibro;
-    
     //quitar un libro
     private MiPanelEscritorio jifQuitarLibro;
     private JTextField jtfTituloQuitar;
     private MiBoton jbQuitarLibroForm;
-    
+
     //LISTAR LIBROS
     private MiPanelEscritorio jifListarLibros;
     private JTextArea unListadoLibros;
     private MiBoton jbActualizarListaLibros;
-    
+
     //buscar libro
     private MiPanelEscritorio jifBuscarLibro;
     private JTextField jtfTituloBuscar;
@@ -127,7 +143,6 @@ public class Menu extends JFrame {
         this.jbOpcionPrestamos = new MisOpciones();
         this.jbAgregarPrestamo = new MiBoton("Registrar Prestamo");
         this.jbRegistraDevolucion = new MiBoton("Registrar Devolucion");
-        this.jbListarPrestamos = new MiBoton("Listar Prestamos");
         this.jbOpcionInicio = new MisOpciones();
         this.jtaTextoInicio = new JTextArea();
         this.jlTituloSocio = new Titulos("Socios");
@@ -136,17 +151,13 @@ public class Menu extends JFrame {
         this.jtpEscritorio = new JTabbedPane();
         this.jlAgregarPrestamo = new MiIcono("/imagenes/Prestamo_Libro.png");
         this.jlRegistraDevolucion = new MiIcono("/imagenes/Devolver_Libro.png");
-        this.jlListarPrestamos = new MiIcono("/imagenes/Lista_Prestamos.png");
         this.jpCabecera = new MiPanelEscritorio("/imagenes/Header.jpeg");
+
+        this.jpOpciones.setLayout(null);
+        this.jtpEscritorio.setLayout(null);
 
         // Iconos Socios
         this.jifSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        this.jifSocio.setLayout(null);
-
-        // Título
-        this.jlTituloSocio = new Titulos("Socios");
-        this.jlTituloSocio.setBounds(40, 50, 200, 40);
-        this.jifSocio.add(this.jlTituloSocio);
 
         // Agregar Socio
         this.jlAgregarSocio = new MiIcono("/imagenes/Agregar_Socio.png");
@@ -174,12 +185,11 @@ public class Menu extends JFrame {
         this.jbListarSocios = new MiBoton("Listar Socios");
         this.jbListarSocios.setBounds(440, 180, 140, 40); // igual
         this.jifSocio.add(this.jbListarSocios);
-        
+
         //listar docentes responsables
         this.jlDocenteResponsable = new MiIcono("/imagenes/Docente_Responsable.png");
         this.jbDocenteResponsable = new MiBoton("Docentes Responsables");
 
-        this.jifSocio.add(jbAgregarSocio);
         this.jbAgregarSocio.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt) {
                     jbAgregarSocio.jBotonMouseEntered(evt);
@@ -190,10 +200,7 @@ public class Menu extends JFrame {
                 }
 
                 public void mouseClicked(MouseEvent evt) {
-                    int index = jtpEscritorio.indexOfComponent(jifAgregarSocio);
-                    if (index != -1) {
-                        jtpEscritorio.setSelectedIndex(index);
-                    } 
+                    jtpEscritorio.setSelectedComponent(jifAgregarSocio);
                 }
             });
 
@@ -208,19 +215,13 @@ public class Menu extends JFrame {
                 }
 
                 public void mouseClicked(MouseEvent evt) {
-                    int index = jtpEscritorio.indexOfComponent(jifQuitarSocio);
-                    if (index != -1) {
-                        jtpEscritorio.setSelectedIndex(index);
-                    } 
+                    jtpEscritorio.setSelectedComponent(jifQuitarSocio);
                 }
             });
 
         this.jbListarSocios.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
-                    int index = jtpEscritorio.indexOfComponent(jifListarSocios);
-                    if (index != -1) {
-                        jtpEscritorio.setSelectedIndex(index);
-                    }
+                    jtpEscritorio.setSelectedComponent(jifListarSocios);
                 }
 
                 public void mouseEntered(MouseEvent evt) {
@@ -231,7 +232,7 @@ public class Menu extends JFrame {
                     jbListarSocios.jBotonMouseExited(evt);
                 }
             });
-        
+
         //se agrega el boton de docentes responsables
         this.jifSocio.add(jbDocenteResponsable);
         this.jbDocenteResponsable.setBounds(240, 320, 140, 40); 
@@ -243,14 +244,15 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbDocenteResponsable.jBotonMouseExited(evt); //
                 }
+
                 public void mouseClicked(MouseEvent evt){
-                jtpEscritorio.setSelectedIndex(12);
+                    jtpEscritorio.setSelectedComponent(jifDocenteResponsable);
                 }
             });
         //agregar icono de docente responsable
         this.jifSocio.add(jlDocenteResponsable);
-        this.jlDocenteResponsable.setBounds(280, 250, 64, 64);
-        
+        this.jlDocenteResponsable.setBounds(280, 250, 64, 64);        
+
         //lo que SE AGREGO DE LIBRO
         this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jlTituloLibro = new Titulos("Libros");
@@ -286,24 +288,16 @@ public class Menu extends JFrame {
         configurarPanelQuitarSocio();
         configurarPanelListarSocios();
         configurarPanelListarDocenteResponsable();
-        
+
         //PANEL AGREGAR LIBROS / QUITAR LIBRO/ LISTAR LIBROS / BUSCAR LIBROS
         configurarPanelAgregarLibro();
         configurarQuitarLibro();
         configurarPanelListarLibros();
         configurarPanelBuscarLibro();
-        
 
-        //Settea el Layout de los paneles a null para ubicar con presicion los componente con coordenadas (x, y)
-        this.jpCabecera.setLayout(null);
-        this.jpOpciones.setLayout(null);
-        this.jtpEscritorio.setLayout(null);
-        this.jifInicio.setLayout(null);
-        this.jifSocio.setLayout(null);
-        this.jifPrestamo.setLayout(null);
-        this.jifAgregarPrestamo.setLayout(null);
-        //setteo de libro con el layout
-        this.jifLibro.setLayout(null);
+        //Panel prestamos
+        this.configurarPanelAgregarPrestamo();
+        this.configurarPanelRegistrarDevolucion();
 
         //Añade el titulo a la cabecera y settea su ubicacion y tamaño
         this.jpCabecera.add(jlTitulo);
@@ -311,35 +305,32 @@ public class Menu extends JFrame {
 
         //Añadir Iconos Prestamos
         this.jifPrestamo.add(jlRegistraDevolucion);
-        this.jlRegistraDevolucion.setBounds(260, 100, 64, 64);
-
-        this.jifPrestamo.add(jlListarPrestamos);
-        this.jlListarPrestamos.setBounds(460, 100, 64, 64);
+        this.jlRegistraDevolucion.setBounds(390, 100, 64, 64);
 
         //Añade icono de agregar prestamo
         this.jifPrestamo.add(jlAgregarPrestamo);
-        this.jlAgregarPrestamo.setBounds(60, 100, 64, 64);
+        this.jlAgregarPrestamo.setBounds(150, 100, 64, 64);
 
         //LO QUE se AGREGO DE LIBRO
         // Añade icono de agregar libro
         this.jifLibro.add(jlAgregarLibros);
-        this.jlAgregarLibros.setBounds(60, 100, 64, 64); 
+        this.jlAgregarLibros.setBounds(80, 100, 64, 64); 
 
         //Añade icono de quitar libro
         this.jifLibro.add(jlQuitarLibro);
-        this.jlQuitarLibro.setBounds(260, 100, 64, 64);
+        this.jlQuitarLibro.setBounds(280, 100, 64, 64);
 
         //Añade icono de listado de libro
         this.jifLibro.add(jlListarLibros);
-        this.jlListarLibros.setBounds(460, 100, 64, 64);
-        
+        this.jlListarLibros.setBounds(480, 100, 64, 64);
+
         //se añade icono de buscar libro
         this.jifLibro.add(jlBuscarLibro);
-        this.jlBuscarLibro.setBounds(260, 250, 64, 64);
+        this.jlBuscarLibro.setBounds(280, 250, 64, 64);
 
         //Añade boton de agregar Libro
         this.jifLibro.add(jbAgregarLibro);
-        this.jbAgregarLibro.setBounds(25, 200, 130, 40);
+        this.jbAgregarLibro.setBounds(40, 180, 140, 40);
         this.jbAgregarLibro.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt){
                     jbAgregarLibro.jBotonMouseEntered(evt);
@@ -348,14 +339,14 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbAgregarLibro.jBotonMouseExited(evt);
                 }
+
                 public void mouseClicked(MouseEvent evt){
-                // jifAgregarLibro es la séptima pestaña (Índice 6)
-                jtpEscritorio.setSelectedIndex(7);
+                    jtpEscritorio.setSelectedComponent(jifAgregarLibro);
                 }
             });
         //AÑADIMOSBOTON DE QUITAR LIBRO
         this.jifLibro.add(jbQuitarLibro);
-        this.jbQuitarLibro.setBounds(225, 200, 130, 40);
+        this.jbQuitarLibro.setBounds(240, 180, 140, 40);
         this.jbQuitarLibro.addMouseListener(new MouseAdapter(){
                 public void mouseEntered(MouseEvent evt){
                     jbQuitarLibro.jBotonMouseEntered(evt);
@@ -364,14 +355,15 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbQuitarLibro.jBotonMouseExited(evt); //
                 }
+
                 public void mouseClicked(MouseEvent evt){
-                jtpEscritorio.setSelectedIndex(8);
+                    jtpEscritorio.setSelectedComponent(jifQuitarLibro);
                 }
             });
 
         //AÑADIMOS BOTON DE LISTAR LIBROS
         this.jifLibro.add(jbListarLibros);
-        this.jbListarLibros.setBounds(425, 200, 130, 40);
+        this.jbListarLibros.setBounds(440, 180, 140, 40);
         this.jbListarLibros.addMouseListener(new MouseAdapter(){
                 public void mouseEntered(MouseEvent evt){
                     jbListarLibros.jBotonMouseEntered(evt);
@@ -380,14 +372,14 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbListarLibros.jBotonMouseExited(evt);
                 }
-                
+
                 public void mouseClicked(MouseEvent evt){
-                jtpEscritorio.setSelectedIndex(9);
+                    jtpEscritorio.setSelectedComponent(jifListarLibros);
                 }
             });
         //se añade el boton de buscar libro
         this.jifLibro.add(jbBuscarLibros);
-        this.jbBuscarLibros.setBounds(225, 320, 130, 40);
+        this.jbBuscarLibros.setBounds(240, 320, 130, 40);
         this.jbBuscarLibros.addMouseListener(new MouseAdapter(){
                 public void mouseEntered(MouseEvent evt){
                     jbBuscarLibros.jBotonMouseEntered(evt);
@@ -396,8 +388,9 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt){
                     jbBuscarLibros.jBotonMouseExited(evt); //
                 }
+
                 public void mouseClicked(MouseEvent evt){
-                jtpEscritorio.setSelectedIndex(11);
+                    jtpEscritorio.setSelectedComponent(jifBuscarLibro);
                 }
             });
 
@@ -411,7 +404,6 @@ public class Menu extends JFrame {
 
         //Añade el titulo a la pestaña de socios
         this.jifSocio.add(jlTituloSocio);
-        this.jifPrestamo.add(jlTituloPrestamo);
 
         //Añade el titulo a la pestaña de libro
         this.jifLibro.add(jlTituloLibro);
@@ -422,7 +414,7 @@ public class Menu extends JFrame {
 
         //Añade botones a la pestaña de prestamos
         this.jifPrestamo.add(jbAgregarPrestamo);
-        this.jbAgregarPrestamo.setBounds(25, 200, 130, 40);
+        this.jbAgregarPrestamo.setBounds(115, 200, 140, 40);
         this.jbAgregarPrestamo.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt) {
                     jbAgregarPrestamo.jBotonMouseEntered(evt);
@@ -436,8 +428,9 @@ public class Menu extends JFrame {
                     jifAgregarPrestamoMouseClicked(evt);
                 }
             });
+
         this.jifPrestamo.add(jbRegistraDevolucion);
-        this.jbRegistraDevolucion.setBounds(225, 200, 130, 40);
+        this.jbRegistraDevolucion.setBounds(355, 200, 140, 40);
         this.jbRegistraDevolucion.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(MouseEvent evt) {
                     jbRegistraDevolucion.jBotonMouseEntered(evt);
@@ -446,18 +439,11 @@ public class Menu extends JFrame {
                 public void mouseExited(MouseEvent evt) {
                     jbRegistraDevolucion.jBotonMouseExited(evt);
                 }
-            });
-        this.jifPrestamo.add(jbListarPrestamos);
-        this.jbListarPrestamos.setBounds(425, 200, 130, 40);
-        this.jbListarPrestamos.addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent evt) {
-                    jbListarPrestamos.jBotonMouseEntered(evt);
-                }
 
-                public void mouseExited(MouseEvent evt) {
-                    jbListarPrestamos.jBotonMouseExited(evt);
+                public void mouseClicked(MouseEvent evt){
+                    jifRegistrarDevolucionMouseClicked(evt);
                 }
-            });    
+            });   
 
         //Color de fondo para el panel de opciones
         this.jpOpciones.setBackground(new Color(102, 102, 102));
@@ -549,8 +535,9 @@ public class Menu extends JFrame {
         this.jtpEscritorio.addTab("tab9", jifQuitarLibro);
         this.jtpEscritorio.addTab("tab10", jifListarLibros);
         this.jtpEscritorio.addTab("tab11", jifAgregarPrestamo);
-        this.jtpEscritorio.addTab("tab12", jifBuscarLibro);
-        this.jtpEscritorio.addTab("tab13", jifDocenteResponsable);
+        this.jtpEscritorio.addTab("tab12", jifRegistrarDevolucion);
+        this.jtpEscritorio.addTab("tab14", jifBuscarLibro);
+        this.jtpEscritorio.addTab("tab15", jifDocenteResponsable);
         this.jifLibro.setBounds(0, 0, 730, 420);
         //Añade el panel de opciones a la ventana principal
         this.getContentPane().add(jpOpciones);
@@ -564,30 +551,34 @@ public class Menu extends JFrame {
     } 
 
     private void jifInicioMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(0);
+        this.jtpEscritorio.setSelectedComponent(jifInicio);
     }
 
     private void jifSocioMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(1);
+        this.jtpEscritorio.setSelectedComponent(jifSocio);
     }
 
     private void jifPrestamoMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(2);
+        this.jtpEscritorio.setSelectedComponent(jifPrestamo);
     }
 
     private void jifAgregarSocioMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(3);
+        this.jtpEscritorio.setSelectedComponent(jifAgregarSocio);
     }
-    
+
     //este agrego nuevo
     private void jifLibroMouseClicked(MouseEvent evt){
-        this.jtpEscritorio.setSelectedIndex(6);
+        this.jtpEscritorio.setSelectedComponent(jifLibro);
     }
 
     private void jifAgregarPrestamoMouseClicked(MouseEvent evt) {                                           
-        this.jtpEscritorio.setSelectedIndex(5);
+        this.jtpEscritorio.setSelectedComponent(jifAgregarPrestamo);
     }
-    
+
+    private void jifRegistrarDevolucionMouseClicked(MouseEvent evt){
+        this.jtpEscritorio.setSelectedComponent(jifRegistrarDevolucion);
+    }
+
     /**
      * Crea, inicializa y posiciona todos los componentes 
      * para el panel de "Agregar Socio" (jifAgregarSocio).
@@ -597,119 +588,71 @@ public class Menu extends JFrame {
 
         // 1. Crear el Panel Principal
         jifAgregarSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifAgregarSocio.setLayout(null); 
-
-        // --- Definir Fuentes y Colores ---
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Font fontRadio = new Font("Corbel", Font.PLAIN, 14);
-        Color colorTexto = Color.WHITE; 
-
-        // 2. Definir Geometría del Panel
-        int panelWidth = 730; 
-
-        // Desplazamiento (Valor Auxiliar Usado Para Centrar Todos Los Elementos, en este caso a la izquierda)
-        int desplazamiento = 40; 
-
-        // 3. Crear y posicionar los componentes
 
         // --- Título ---
-        JLabel jlTituloForm = new JLabel("Agregar Nuevo Socio");
-        jlTituloForm.setFont(fontTitulo);
-        jlTituloForm.setForeground(colorTexto);
-        int tituloWidth = 300; 
-        // Calculamos el centro y LUEGO restamos el desplazamiento
-        int tituloX = ((panelWidth - tituloWidth) / 2); 
-        jlTituloForm.setBounds(tituloX, 20, tituloWidth, 30);
+        Titulos jlTituloForm = new Titulos("Agregar Nuevo Socio");
         jifAgregarSocio.add(jlTituloForm);
 
         // --- Radio Buttons ---
-        int radioDocenteWidth = 100;
-        int radioAlumnoWidth = 100;
-        int radioGap = 10;
-        int radioBlockWidth = radioDocenteWidth + radioGap + radioAlumnoWidth; 
-        int radioStartX = ((panelWidth - radioBlockWidth) / 2) - desplazamiento;
-
         rbDocente = new JRadioButton("Docente");
-        rbDocente.setFont(fontRadio);
-        rbDocente.setForeground(colorTexto);
+        rbDocente.setFont(new Font("Corbel", Font.BOLD, 14));
+        rbDocente.setForeground(Color.white);
         rbDocente.setOpaque(false);
-        rbDocente.setBounds(radioStartX, 70, radioDocenteWidth, 30);
+        rbDocente.setBounds(220, 70, 100, 30);
         jifAgregarSocio.add(rbDocente);
 
         rbAlumno = new JRadioButton("Alumno");
-        rbAlumno.setFont(fontRadio);
-        rbAlumno.setForeground(colorTexto);
+        rbAlumno.setFont(new Font("Corbel", Font.BOLD, 14));
+        rbAlumno.setForeground(Color.white);
         rbAlumno.setOpaque(false);
         rbAlumno.setSelected(true); 
-        rbAlumno.setBounds(radioStartX + radioDocenteWidth + radioGap, 70, radioAlumnoWidth, 30);
+        rbAlumno.setBounds(330, 70, 100, 30);
         jifAgregarSocio.add(rbAlumno);
 
         bgTipoSocio = new ButtonGroup();
         bgTipoSocio.add(rbDocente);
         bgTipoSocio.add(rbAlumno);
 
-        // --- Columnas de Campos ---
-        int label_ancho = 200;
-        int field_ancho = 220; 
-        int field_alto = 28;    
-        int column_gap = 60;    
-
-        int formBlockWidth = field_ancho + column_gap + field_ancho;
-        int col1_x = ((panelWidth - formBlockWidth) / 2) - desplazamiento;
-        int col2_x = col1_x + field_ancho + column_gap; 
-
         // --- Columna Izquierda (DNI y Nombre) ---
-        jlDNI = new JLabel("DNI:");
-        jlDNI.setFont(fontLabel);
-        jlDNI.setForeground(colorTexto);
-        jlDNI.setBounds(col1_x, 120, label_ancho, 25);
+        jlDNI = new MiEtiqueta("DNI: ");
+        jlDNI.setBounds(75, 120, 200, 25);
         jifAgregarSocio.add(jlDNI);
 
         jtfDNI = new JTextField();
-        jtfDNI.setBounds(col1_x, 150, field_ancho, field_alto);
+        jtfDNI.setBounds(75, 150, 220, 28);
         jifAgregarSocio.add(jtfDNI);
 
         // Nombre
-        jlNombre = new JLabel("Nombre Completo:");
-        jlNombre.setFont(fontLabel);
-        jlNombre.setForeground(colorTexto);
-        jlNombre.setBounds(col1_x, 190, label_ancho, 25);
+        jlNombre = new MiEtiqueta("Nombre Completo:");
+        jlNombre.setBounds(75, 190, 200, 25);
         jifAgregarSocio.add(jlNombre);
 
         jtfNombre = new JTextField();
-        jtfNombre.setBounds(col1_x, 220, field_ancho, field_alto);
+        jtfNombre.setBounds(75, 220, 220, 28);
         jifAgregarSocio.add(jtfNombre);
 
         // --- Columna Derecha (Carrera y Días) ---
-        jlCarreraAsignatura = new JLabel("Carrera:"); 
-        jlCarreraAsignatura.setFont(fontLabel);
-        jlCarreraAsignatura.setForeground(colorTexto);
-        jlCarreraAsignatura.setBounds(col2_x, 120, label_ancho, 25);
+        jlCarreraAsignatura = new MiEtiqueta("Carrera:"); 
+        jlCarreraAsignatura.setBounds(355, 120, 200, 25);
         jifAgregarSocio.add(jlCarreraAsignatura);
 
         jtfCarreraAsignatura = new JTextField();
-        jtfCarreraAsignatura.setBounds(col2_x, 150, field_ancho, field_alto);
+        jtfCarreraAsignatura.setBounds(355, 150, 220, 28);
         jifAgregarSocio.add(jtfCarreraAsignatura);
 
         // Días de Préstamo
-        jlDiasPrestamo = new JLabel("Días de Préstamo:");
-        jlDiasPrestamo.setFont(fontLabel);
-        jlDiasPrestamo.setForeground(colorTexto);
-        jlDiasPrestamo.setBounds(col2_x, 190, label_ancho, 25);
+        jlDiasPrestamo = new MiEtiqueta("Días de Préstamo:");
+        jlDiasPrestamo.setBounds(355, 190, 200, 25);
         jifAgregarSocio.add(jlDiasPrestamo);
 
         jtfDiasPrestamo = new JTextField("20"); 
         jtfDiasPrestamo.setEnabled(false); 
-        jtfDiasPrestamo.setBounds(col2_x, 220, field_ancho, field_alto);
+        jtfDiasPrestamo.setBounds(355, 220, 220, 28);
         jifAgregarSocio.add(jtfDiasPrestamo);
 
         // --- Botón Guardar ---
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - 50;
         jbGuardarSocio = new MiBoton("Guardar Socio");
-        jbGuardarSocio.setBounds(botonX, 300, botonWidth, botonHeight); 
+        jbGuardarSocio.setBounds(240, 300, 140, 40); 
         jifAgregarSocio.add(jbGuardarSocio);
 
         // --- 4. Lógica de los Componentes ---
@@ -787,55 +730,29 @@ public class Menu extends JFrame {
     }
 
     private void configurarPanelQuitarSocio() {
-
         // 1. Panel Principal
         jifQuitarSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifQuitarSocio.setLayout(null);
-
-        // --- Fuentes y Colores ---
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-
-        // Geometría del panel
-        int panelWidth = 730;
-        int desplazamiento = 40;
 
         // 2. Título
-        JLabel jlTituloForm = new JLabel("Quitar Usuario");
-        jlTituloForm.setFont(fontTitulo);
-        jlTituloForm.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int tituloX = ((panelWidth - tituloWidth) / 2) + 37;
-        jlTituloForm.setBounds(tituloX, 40, tituloWidth, 30);
+        Titulos jlTituloForm = new Titulos("Quitar Usuario");
         jifQuitarSocio.add(jlTituloForm);
 
         // 3. DNI
-        JLabel jlDNIQuitar = new JLabel("DNI:");
-        jlDNIQuitar.setFont(fontLabel);
-        jlDNIQuitar.setForeground(colorTexto);
-        int labelWidth = 200;
-        int fieldWidth = 220;
-        int fieldHeight = 28;
-        int posX = ((panelWidth - fieldWidth) / 2) - desplazamiento;
-
-        jlDNIQuitar.setBounds(posX, 120, labelWidth, 25);
+        MiEtiqueta jlDNIQuitar = new MiEtiqueta("DNI:");
+        jlDNIQuitar.setBounds(190, 120, 200, 25);
         jifQuitarSocio.add(jlDNIQuitar);
 
         jtfDNIQuitar = new JTextField();
-        jtfDNIQuitar.setBounds(posX, 150, fieldWidth, fieldHeight);
+        jtfDNIQuitar.setBounds(190, 150, 220, 28);
         jifQuitarSocio.add(jtfDNIQuitar);
 
         // 4. Botón Quitar
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
-        jbQuitarSocio = new MiBoton("Quitar Usuario");
-        jbQuitarSocio.setBounds(botonX, 230, botonWidth, botonHeight);
-        jifQuitarSocio.add(jbQuitarSocio);
+        MiBoton jbEliminarSocio = new MiBoton("Quitar Usuario");
+        jbEliminarSocio.setBounds(240, 300, 140, 40);
+        jifQuitarSocio.add(jbEliminarSocio);
 
         // 5. Eventos Botón (lógica tuya luego)
-        jbQuitarSocio.addMouseListener(new MouseAdapter() {
+        jbEliminarSocio.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
                     try {
                         String textoDNI = jtfDNIQuitar.getText().trim();
@@ -864,11 +781,11 @@ public class Menu extends JFrame {
                 }
 
                 public void mouseEntered(MouseEvent evt) {
-                    jbQuitarSocio.jBotonMouseEntered(evt);
+                    jbEliminarSocio.jBotonMouseEntered(evt);
                 }
 
                 public void mouseExited(MouseEvent evt) {
-                    jbQuitarSocio.jBotonMouseExited(evt);
+                    jbEliminarSocio.jBotonMouseExited(evt);
                 }
             });
     }
@@ -876,522 +793,531 @@ public class Menu extends JFrame {
     private void configurarPanelListarSocios() {
         // Panel Principal con fondo
         jifListarSocios = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifListarSocios.setLayout(null);
-
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-
-        int panelWidth = 730;
-        int desplazamiento = 40;
 
         // Título
-        JLabel jlTitulo = new JLabel("Listado de Socios");
-        jlTitulo.setFont(fontTitulo);
-        jlTitulo.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int tituloX = ((panelWidth - tituloWidth) / 2) + 23;
-        jlTitulo.setBounds(tituloX, 20, tituloWidth, 30);
+        Titulos jlTitulo = new Titulos("Listado de Socios");
         jifListarSocios.add(jlTitulo);
 
         // Área de texto para mostrar el listado
         taListadoSocios = new JTextArea();
         taListadoSocios.setEditable(false);
         taListadoSocios.setOpaque(false);
-        taListadoSocios.setForeground(colorTexto);
-        taListadoSocios.setFont(new Font("Corbel", Font.PLAIN, 14));
+        taListadoSocios.setForeground(Color.white);
+        taListadoSocios.setFont(new Font("Corbel", Font.BOLD, 14));
         taListadoSocios.setLineWrap(true);
         taListadoSocios.setWrapStyleWord(true);
 
         JScrollPane scroll = new JScrollPane(taListadoSocios);
-        scroll.setBounds(70, 80, 500, 220);
+        scroll.setBounds(70, 60, 500, 220);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         jifListarSocios.add(scroll);
 
         // Botón Actualizar
-        jbListarSocios = new MiBoton("Actualizar Lista");
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
-        jbListarSocios.setBounds(botonX, 310, botonWidth, botonHeight);
-        jifListarSocios.add(jbListarSocios);
+        MiBoton jbActualizarListarSocios = new MiBoton("Actualizar Lista");
+        jbActualizarListarSocios.setBounds(240, 300, 140, 40);
+        jifListarSocios.add(jbActualizarListarSocios);
 
         // Lógica del botón 
-        jbListarSocios.addMouseListener(new MouseAdapter() {
+        jbActualizarListarSocios.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
-
-                    // Obtener la lista de socios desde la biblioteca
-                    String listado = miBiblioteca.listarSocio();
-
                     // Mostrar la información en el JTextArea
-                    taListadoSocios.setText(listado);
+                    taListadoSocios.setText(miBiblioteca.listarSocio());
 
                     // Que el cursor vuelva arriba 
                     taListadoSocios.setCaretPosition(0);
                 }
 
                 public void mouseEntered(MouseEvent evt) {
-                    jbListarSocios.jBotonMouseEntered(evt);
+                    jbActualizarListarSocios.jBotonMouseEntered(evt);
                 }
 
                 public void mouseExited(MouseEvent evt) {
-                    jbListarSocios.jBotonMouseExited(evt);
+                    jbActualizarListarSocios.jBotonMouseExited(evt);
                 }
             });
 
     }
+
     /**
      * Listar Docentes Responsables
      */
     private void configurarPanelListarDocenteResponsable(){
         //panel principal
         jifDocenteResponsable = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifDocenteResponsable.setLayout(null);
-
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-
-        int panelWidth = 730;
-        int desplazamiento = 40;
-
         //titulo
-        JLabel jlTitulo = new JLabel("Listado de Docentes Responsable");
-        jlTitulo.setFont(fontTitulo);
-        jlTitulo.setForeground(colorTexto);
-        int tituloWidth = 300;
-        jlTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        jlTitulo.setBounds(0, 20, panelWidth, 30);
+        Titulos jlTitulo = new Titulos("Listado de Docentes Responsable");
         jifDocenteResponsable.add(jlTitulo);
 
         // area texto para mostrar el listado
         elListadoDocenteResponsable = new JTextArea();
         elListadoDocenteResponsable.setEditable(false);
         elListadoDocenteResponsable.setOpaque(false);
-        elListadoDocenteResponsable.setForeground(colorTexto);
-        elListadoDocenteResponsable.setFont(new Font("Corbel", Font.PLAIN, 14));
+        elListadoDocenteResponsable.setForeground(Color.white);
+        elListadoDocenteResponsable.setFont(new Font("Corbel", Font.BOLD, 14));
         elListadoDocenteResponsable.setLineWrap(true);
         elListadoDocenteResponsable.setWrapStyleWord(true);
 
         JScrollPane scroll = new JScrollPane(elListadoDocenteResponsable);
-        scroll.setBounds(70, 80, 500, 220);
+        scroll.setBounds(70, 60, 500, 220);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         jifDocenteResponsable.add(scroll);
 
         //boton de actualizar
-        jbDocenteResponsable = new MiBoton("Actualizar Lista");
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
-        jbDocenteResponsable.setBounds(botonX, 310, botonWidth, botonHeight);
-        jifDocenteResponsable.add(jbDocenteResponsable);
-        
-        jbDocenteResponsable.addMouseListener(new MouseAdapter(){
-          public void mouseClicked(MouseEvent evt){
-              elListadoDocenteResponsable.setText(miBiblioteca.listaDeDocentesResponsables());//lista de los docentes responsables
-              elListadoDocenteResponsable.setCaretPosition(0);
-          }
-          
-          public void mouseEntered(MouseEvent evt){
-              jbDocenteResponsable.jBotonMouseEntered(evt);
-          }
-          
-          public void mouseExited(MouseEvent evt){
-              jbDocenteResponsable.jBotonMouseExited(evt);
-          }
-       });
+        MiBoton jbListaDocenteResponsable = new MiBoton("Actualizar Lista");
+        jbListaDocenteResponsable.setBounds(240, 300, 140, 40);
+        jifDocenteResponsable.add(jbListaDocenteResponsable);
+
+        jbListaDocenteResponsable.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent evt){
+                    elListadoDocenteResponsable.setText(miBiblioteca.listaDeDocentesResponsables());//lista de los docentes responsables
+                    elListadoDocenteResponsable.setCaretPosition(0);
+                }
+
+                public void mouseEntered(MouseEvent evt){
+                    jbListaDocenteResponsable.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbListaDocenteResponsable.jBotonMouseExited(evt);
+                }
+            });
     }
+
     /**
      * AGREGAR LIBRO
      */
     private void configurarPanelAgregarLibro(){
         //creo el panel principal
         jifAgregarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifAgregarLibro.setLayout(null);
-        
-        //la fuente y el color
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-        
-        //copiando el de socio
-        int panelWidth = 730;
-        int desplazamiento = 40;
-        
+
         //creamos y posicionamos los componente
         //titulo
-        JLabel jlTituloForm = new JLabel("Agregar Nuevo Libro");
-        jlTituloForm.setFont(fontTitulo);
-        jlTituloForm.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int tituloX = ((panelWidth - tituloWidth) / 2);
-        jlTituloForm.setBounds(tituloX, 20, tituloWidth, 30);
+        Titulos jlTituloForm = new Titulos("Agregar Nuevo Libro");
         jifAgregarLibro.add(jlTituloForm);
-        
-        //COLUMNAS DE CAMPOS
-        int label_ancho = 200;
-        int field_ancho = 220;
-        int field_alto = 28;
-        int colum_gap = 60;
-        
-        int formBlockWidth = field_ancho + colum_gap + field_ancho;
-        int col1_x = ((panelWidth - formBlockWidth) / 2) - desplazamiento;
-        int col2_x = col1_x + field_ancho + colum_gap;
-        
-        int y_fila1_label = 90;
-        int y_fila1_field = 120;
-        int y_fila2_label = 160;
-        int y_fila2_field = 190;
-        
+
         // titulo y editorial
-        JLabel jlTitulo1 = new JLabel("Titulo:");
-        jlTitulo1.setFont(fontLabel);
-        jlTitulo1.setForeground(colorTexto);
-        jlTitulo1.setBounds(col1_x, y_fila1_label, label_ancho, 25);
+        MiEtiqueta jlTitulo1 = new MiEtiqueta("Titulo:");
+        jlTitulo1.setBounds(75, 90, 200, 25); // (75, 90, 200, 25)
         jifAgregarLibro.add(jlTitulo1);
-        
+
         jtfTituloLibro = new JTextField();// (Usa la variable de clase)
-        jtfTituloLibro.setBounds(col1_x, y_fila1_field, field_ancho, field_alto);
+        jtfTituloLibro.setBounds(75, 120, 220, 28); // (75, 120, 220, 28)
         jifAgregarLibro.add(jtfTituloLibro);
-        
+
         //editorial
-        JLabel jlEditorial = new JLabel("Editorial:");
-        jlEditorial.setFont(fontLabel);
-        jlEditorial.setForeground(colorTexto);
-        jlEditorial.setBounds(col1_x, y_fila2_label, label_ancho, 25);
+        MiEtiqueta jlEditorial = new MiEtiqueta("Editorial:");
+        jlEditorial.setBounds(75, 160, 200, 25); // (75, 160, 200, 25)
         jifAgregarLibro.add(jlEditorial);
-        
+
         jtfEditorial = new JTextField(); 
-        jtfEditorial.setBounds(col1_x, y_fila2_field, field_ancho, field_alto);
+        jtfEditorial.setBounds(75, 190, 220, 28); // (75, 190, 220, 25)
         jifAgregarLibro.add(jtfEditorial);
-        
+
         //columna derecha
-        JLabel jlEdicion = new JLabel("Edicion (numero): ");
-        jlEdicion.setFont(fontLabel);
-        jlEdicion.setForeground(colorTexto);
-        jlEdicion.setBounds(col2_x, y_fila1_label, label_ancho, 25);
+        MiEtiqueta jlEdicion = new MiEtiqueta("Edicion (numero): ");
+        jlEdicion.setBounds(355, 90, 200, 25); // (355, 90, 200, 25)
         jifAgregarLibro.add(jlEdicion);
-        
+
         jtfEdicion = new JTextField();
-        jtfEdicion.setBounds(col2_x, y_fila1_field, field_ancho, field_alto);
+        jtfEdicion.setBounds(355, 120, 220, 28); // (355, 120, 220, 28)
         jifAgregarLibro.add(jtfEdicion);
-        
+
         //anio
-        JLabel jlAnio = new JLabel("Año (numero):");
-        jlAnio.setFont(fontLabel);
-        jlAnio.setForeground(colorTexto);
-        jlAnio.setBounds(col2_x, y_fila2_label, label_ancho, 25);
+        MiEtiqueta jlAnio = new MiEtiqueta("Año (numero):");
+        jlAnio.setBounds(355, 160, 200, 25); // (355, 160, 200, 25)
         jifAgregarLibro.add(jlAnio);
-        
+
         jtfAnio = new JTextField();
-        jtfAnio.setBounds(col2_x, y_fila2_field, field_ancho, field_alto);
+        jtfAnio.setBounds(355, 190, 220, 28); // (355, 190, 220, 28)
         jifAgregarLibro.add(jtfAnio);
-        
+
         //Boton de guardar
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
         jbGuardarLibro = new MiBoton("Guardar Libro");
-        jbGuardarLibro.setBounds(botonX, 270, botonWidth, botonHeight);
+        jbGuardarLibro.setBounds(240, 300, 140, 40);
         jifAgregarLibro.add(jbGuardarLibro);
-        
+
         jbGuardarLibro.addMouseListener(new MouseAdapter(){
-           public void mouseClicked(MouseEvent evt){
-               //ESTA ES LA LÓGICA me FALTABA
-               try{
-                //obtener valore
-                String titulo = jtfTituloLibro.getText().trim();
-                String editorial= jtfEditorial.getText().trim();
-                String edicionTexto = jtfEdicion.getText().trim();
-                String anioTexto = jtfAnio.getText().trim();
-                
-                //validar campos vacios
-                if(titulo.isEmpty() || editorial.isEmpty() || edicionTexto.isEmpty() || anioTexto.isEmpty()){
-                  JOptionPane.showMessageDialog(null, "Complete todos los campos para agregar el Libro ");
-                  return;
+                public void mouseClicked(MouseEvent evt){
+                    //ESTA ES LA LÓGICA me FALTABA
+                    try{
+                        //obtener valore
+                        String titulo = jtfTituloLibro.getText().trim();
+                        String editorial= jtfEditorial.getText().trim();
+                        String edicionTexto = jtfEdicion.getText().trim();
+                        String anioTexto = jtfAnio.getText().trim();
+
+                        //validar campos vacios
+                        if(titulo.isEmpty() || editorial.isEmpty() || edicionTexto.isEmpty() || anioTexto.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "Complete todos los campos para agregar el Libro ");
+                            return;
+                        }
+                        // 3. Convertir a números
+                        int edicion = Integer.parseInt(edicionTexto);
+                        int anio = Integer.parseInt(anioTexto);
+
+                        // 4. Validar si el libro ya existe
+                        // if (miBiblioteca.buscarLibro(titulo) != null) 
+
+                        //llamamos a biblioteca para agregar los libros
+                        miBiblioteca.nuevoLibro(titulo, edicion, editorial, anio);
+                        JOptionPane.showMessageDialog(null, "Libro agregado con éxito.");
+
+                        //limpiar campo
+                        jtfTituloLibro.setText("");
+                        jtfEditorial.setText("");
+                        jtfEdicion.setText("");
+                        jtfAnio.setText("");
+                    }catch(NumberFormatException e){
+                        JOptionPane.showMessageDialog(null, "Edición y Año deben ser numéricos.");
+                    }
                 }
-                // 3. Convertir a números
-                int edicion = Integer.parseInt(edicionTexto);
-                int anio = Integer.parseInt(anioTexto);
-                
-                // 4. Validar si el libro ya existe
-                // if (miBiblioteca.buscarLibro(titulo) != null) 
-                
-                //llamamos a biblioteca para agregar los libros
-                miBiblioteca.nuevoLibro(titulo, edicion, editorial, anio);
-                JOptionPane.showMessageDialog(null, "Libro agregado con éxito.");
-                
-                //limpiar campo
-                jtfTituloLibro.setText("");
-                jtfEditorial.setText("");
-                jtfEdicion.setText("");
-                jtfAnio.setText("");
-                
-                jtpEscritorio.setSelectedIndex(4);
-           }catch(NumberFormatException e){
-               JOptionPane.showMessageDialog(null, "Edición y Año deben ser numéricos.");
-           }
-        }
-           
-           public void mouseEntered(MouseEvent evt){
-               jbGuardarLibro.jBotonMouseEntered(evt);
-           }
-           public void mouseExited(MouseEvent evt){
-               jbGuardarLibro.jBotonMouseExited(evt);
-           }
-        });
+
+                public void mouseEntered(MouseEvent evt){
+                    jbGuardarLibro.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbGuardarLibro.jBotonMouseExited(evt);
+                }
+            });
     }
+
     /**
      * quitar libro 
      */    
     private void configurarQuitarLibro(){
         //panel principal
-        jifQuitarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifQuitarLibro.setLayout(null);
-        
-        //fuentes
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-        
-        int panelWidth = 730;
-        int desplazamiento = 40;
+        jifQuitarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg"); 
         
         //titulo 
-        JLabel jlTituloForm = new JLabel("Quitar Libro del Catálogo");
-        jlTituloForm.setFont(fontTitulo);
-        jlTituloForm.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int tituloX = ((panelWidth - tituloWidth) / 2);
-        jlTituloForm.setBounds(tituloX, 40 , tituloWidth, 30);
+        Titulos jlTituloForm = new Titulos("Quitar Libro del Catálogo");
         jifQuitarLibro.add(jlTituloForm);
-        
+
         //titulo del libr
-        JLabel jlTituloQuitar = new JLabel("Titulo del libro:");
-        jlTituloQuitar.setFont(fontLabel);
-        jlTituloQuitar.setForeground(colorTexto);
-        int labelWidth = 200;
-        int fieldWidth = 220;
-        int fieldHeight = 28;
-        int posX = ((panelWidth - fieldWidth) / 2) - desplazamiento;
-        
-        jlTituloQuitar.setBounds(posX, 120, labelWidth, 25);
+        MiEtiqueta jlTituloQuitar = new MiEtiqueta("Titulo del libro:");
+        jlTituloQuitar.setBounds(190, 120, 200, 25);
         jifQuitarLibro.add(jlTituloQuitar);
-        
+
         jtfTituloQuitar = new JTextField();
-        jtfTituloQuitar.setBounds(posX, 150, fieldWidth, fieldHeight);
+        jtfTituloQuitar.setBounds(190, 150, 220, 28);
         jifQuitarLibro.add(jtfTituloQuitar);
-        
+
         //botono quitar
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
         jbQuitarLibroForm = new MiBoton("Quitar Libro");
-        jbQuitarLibroForm.setBounds(botonX, 230, botonWidth, botonHeight);
+        jbQuitarLibroForm.setBounds(240, 300, 140, 40);
         jifQuitarLibro.add(jbQuitarLibroForm);
-        
+
         //ahora lo que seria la accion de quitar el libro
         jbQuitarLibroForm.addMouseListener(new MouseAdapter(){
-           public void mouseClicked(MouseEvent evt){
-               //vamos a eliminar libro por su titulo
-               String titulo = jtfTituloQuitar.getText().trim();
-               
-               //verificamos si esta vacio
-               if(titulo.isEmpty()){
-                   JOptionPane.showMessageDialog(null, "Ingrese un titulo valido");
-                   return;
-               }
+                public void mouseClicked(MouseEvent evt){
+                    //vamos a eliminar libro por su titulo
+                    String titulo = jtfTituloQuitar.getText().trim();
 
-               //buscamos el libro
-               Libro libro = null;
-               for(Libro unLibro : miBiblioteca.getLibros()){
-                   if(titulo.equalsIgnoreCase(unLibro.getTitulo())){
-                       libro = unLibro;
-                   }
-               }
-               //validamos que exista el libro
-               if(libro == null){
-                   JOptionPane.showMessageDialog(null,"No existe un libro con ese Título.");
-                   return;
-               }
-               //validamos que el libro no este prestado
-               if(libro.prestado()){
-                   JOptionPane.showMessageDialog(null, "El libro '" + libro.getTitulo() + " no se puede eliminar porque está PRESTADO.");
-                    return;
+                    //verificamos si esta vacio
+                    if(titulo.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Ingrese un titulo valido");
+                        return;
+                    }
+
+                    //buscamos el libro
+                    Libro libro = null;
+                    for(Libro unLibro : miBiblioteca.getLibros()){
+                        if(titulo.equalsIgnoreCase(unLibro.getTitulo())){
+                            libro = unLibro;
+                        }
+                    }
+                    //validamos que exista el libro
+                    if(libro == null){
+                        JOptionPane.showMessageDialog(null,"No existe un libro con ese Título.");
+                        return;
+                    }
+                    //validamos que el libro no este prestado
+                    if(libro.prestado()){
+                        JOptionPane.showMessageDialog(null, "El libro '" + libro.getTitulo() + " no se puede eliminar porque está PRESTADO.");
+                        return;
+                    }
+                    // eliminamos el libro
+                    miBiblioteca.quitarLibro(libro);
+                    JOptionPane.showMessageDialog(null, "Libro quitado con exito...");
+
+                    jtfTituloQuitar.setText(""); // Limpia el campo
+
                 }
-               // eliminamos el libro
-               miBiblioteca.quitarLibro(libro);
-               JOptionPane.showMessageDialog(null, "Libro quitado con exito...");
-               
-               jtfTituloQuitar.setText(""); // Limpia el campo
-               
-           }
-           public void mouseEntered(MouseEvent evt){
-               jbQuitarLibroForm.jBotonMouseEntered(evt);
-           }
-           
-           public void mouseExited(MouseEvent evt){
-               jbQuitarLibroForm.jBotonMouseExited(evt);
-           }
-        });
-        
+
+                public void mouseEntered(MouseEvent evt){
+                    jbQuitarLibroForm.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbQuitarLibroForm.jBotonMouseExited(evt);
+                }
+            });
+
     }
-    
-    
+
     /**
      * LISTADO DE LIBROS
      */
     private void configurarPanelListarLibros(){
         jifListarLibros = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifListarLibros.setLayout(null);
-        
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Color colorTexto = Color.WHITE;
-        
-        int panelWidth = 730;
-        int desplazamiento = 40;
-        
+
         //Titulo
-        JLabel jlTitulo = new JLabel("Listado de libros");
-        jlTitulo.setFont(fontTitulo);
-        jlTitulo.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int titulox = ((panelWidth - tituloWidth) / 2);
-        jlTitulo.setBounds(titulox, 20, tituloWidth, 30);
+        Titulos jlTitulo = new Titulos("Listado de libros");
         jifListarLibros.add(jlTitulo);
-        
+
         //lugar donde muestro el listado
         unListadoLibros = new JTextArea();
         unListadoLibros.setEditable(false);
         unListadoLibros.setOpaque(false);
-        unListadoLibros.setForeground(colorTexto);
-        unListadoLibros.setFont(new Font("Corbel", Font.PLAIN, 14));
+        unListadoLibros.setForeground(Color.white);
+        unListadoLibros.setFont(new Font("Corbel", Font.BOLD, 14));
         unListadoLibros.setLineWrap(true);
         unListadoLibros.setWrapStyleWord(true);
-        
+
         //para scrollear
         JScrollPane scroll = new JScrollPane(unListadoLibros);
-        scroll.setBounds(70, 80, 500, 220);
+        scroll.setBounds(70, 60, 500, 220);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         jifListarLibros.add(scroll);
-        
+
         //boton actualizar
         jbActualizarListaLibros = new MiBoton("Actualizar lista");
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
-        jbActualizarListaLibros.setBounds(botonX, 310, botonWidth, botonHeight);
-       jifListarLibros.add(jbActualizarListaLibros);
-       
-       jbActualizarListaLibros.addMouseListener(new MouseAdapter(){
-          public void mouseClicked(MouseEvent evt){
-              
-            //le mandamos listar libro y lo mostramos por el jtext
-              unListadoLibros.setText(miBiblioteca.listaDeLibro());
-              //q el cursor vuelva arriba
-              unListadoLibros.setCaretPosition(0);
-              
-              
-          }
-          
-          public void mouseEntered(MouseEvent evt){
-              jbActualizarListaLibros.jBotonMouseEntered(evt);
-          }
-          
-          public void mouseExited(MouseEvent evt){
-              jbActualizarListaLibros.jBotonMouseExited(evt);
-          }
-       });
-       
+        jbActualizarListaLibros.setBounds(240, 300, 140, 40);
+        jifListarLibros.add(jbActualizarListaLibros);
+
+        jbActualizarListaLibros.addMouseListener(new MouseAdapter(){
+                public void mouseClicked(MouseEvent evt){
+
+                    //le mandamos listar libro y lo mostramos por el jtext
+                    unListadoLibros.setText(miBiblioteca.listaDeLibro());
+                    //q el cursor vuelva arriba
+                    unListadoLibros.setCaretPosition(0);
+
+                }
+
+                public void mouseEntered(MouseEvent evt){
+                    jbActualizarListaLibros.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbActualizarListaLibros.jBotonMouseExited(evt);
+                }
+            });
+
     }
+
     /**
      * Buscar libro
      */
     private void configurarPanelBuscarLibro(){
         //panel principal
         jifBuscarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        jifBuscarLibro.setLayout(null);
-        //fuentes
-        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
-        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
-        Color colorTexto = Color.WHITE;
-        int panelWidth = 730;
-        int desplazamiento = 40;
-        
+
         //titulo 
-        JLabel jlTituloForm = new JLabel("Buscar Libro del Catálogo");
-        jlTituloForm.setFont(fontTitulo);
-        jlTituloForm.setForeground(colorTexto);
-        int tituloWidth = 300;
-        int tituloX = ((panelWidth - tituloWidth) / 2);
-        jlTituloForm.setBounds(tituloX, 40 , tituloWidth, 30);
+        Titulos jlTituloForm = new Titulos("Buscar Libro del Catálogo");
         jifBuscarLibro.add(jlTituloForm);
-        
+
         //titulo del libro
-        JLabel jlTituloBuscar = new JLabel("Titulo del libro:");
-        jlTituloBuscar.setFont(fontLabel);
-        jlTituloBuscar.setForeground(colorTexto);
-        int labelWidth = 200;
-        int fieldWidth = 220;
-        int fieldHeight = 28;
-        int posX = ((panelWidth - fieldWidth) / 2) - desplazamiento;
-        
-        jlTituloBuscar.setBounds(posX, 120, labelWidth, 25);
+        MiEtiqueta jlTituloBuscar = new MiEtiqueta("Titulo del libro:");
+        jlTituloBuscar.setBounds(190, 120, 200, 25);
         jifBuscarLibro.add(jlTituloBuscar);
-        
+
         jtfTituloBuscar = new JTextField();
-        jtfTituloBuscar.setBounds(posX, 150, fieldWidth, fieldHeight);
+        jtfTituloBuscar.setBounds(190, 150, 220, 28);
         jifBuscarLibro.add(jtfTituloBuscar);
-        
+
         //boton buscar
-        int botonWidth = 150;
-        int botonHeight = 40;
-        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
         jbBuscarLibroForm = new MiBoton("Buscar Disponibilidad");
-        jbBuscarLibroForm.setBounds(botonX, 230, botonWidth, botonHeight);
+        jbBuscarLibroForm.setBounds(240, 300, 140, 40);
         jifBuscarLibro.add(jbBuscarLibroForm);
-        
+
         //operacion buscar quien tiene el libro
         jbBuscarLibroForm.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            // se pide el titulo al usuario
-            String tituloBuscado = jtfTituloBuscar.getText().trim(); 
-            // se verifica que haya escrito algo
-            if (tituloBuscado != null && !tituloBuscado.trim().isEmpty()) {
-                boolean encontrado = false;
-                for (Libro unLibro : miBiblioteca.getLibros()) {
-                    if (unLibro.getTitulo().equalsIgnoreCase(tituloBuscado.trim())) {
-                        encontrado = true;
-                        try {
-                            String nombreSocio = miBiblioteca.quienTieneElLibro(unLibro);
-                            JOptionPane.showMessageDialog(null, "El libro '" + unLibro.getTitulo() + "' está prestado a " + nombreSocio + ".", 
-                            "Resultado", JOptionPane.INFORMATION_MESSAGE);
-                        } catch (LibroEnBibliotecaException ex) {
-                            JOptionPane.showMessageDialog(null, 
-                            "El libro '" + unLibro.getTitulo() + "' está en la biblioteca (disponible).","Resultado", JOptionPane.INFORMATION_MESSAGE);
+                public void actionPerformed(ActionEvent e) {
+                    // se pide el titulo al usuario
+                    String tituloBuscado = jtfTituloBuscar.getText().trim(); 
+                    // se verifica que haya escrito algo
+                    if (tituloBuscado != null) {
+                        boolean encontrado = false;
+                        for (Libro unLibro : miBiblioteca.getLibros()) {
+                            if (unLibro.getTitulo().equalsIgnoreCase(tituloBuscado)) {
+                                encontrado = true;
+                                try {
+                                    String nombreSocio = miBiblioteca.quienTieneElLibro(unLibro);
+                                    JOptionPane.showMessageDialog(null, "El libro '" + unLibro.getTitulo() + "' está prestado a " + nombreSocio + ".", 
+                                        "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                                } catch (LibroEnBibliotecaException ex) {
+                                    JOptionPane.showMessageDialog(null, 
+                                        "El libro '" + unLibro.getTitulo() + "' está en la biblioteca (disponible).","Resultado", JOptionPane.INFORMATION_MESSAGE);
+                                }
+                                break; // dejamos de buscar una vez que lo encontramos
+                            }
                         }
-                        break; // dejamos de buscar una vez que lo encontramos
+
+                        if (!encontrado) {
+                            JOptionPane.showMessageDialog(null, 
+                                "No se encontró ningún libro con el título '" + tituloBuscado + "'.", "Resultado", JOptionPane.WARNING_MESSAGE);
+                        }
                     }
+                }
+            });
+        jbBuscarLibroForm.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent evt) {
+                    jbBuscarLibroForm.jBotonMouseEntered(evt);
                 }
 
-                if (!encontrado) {
-                    JOptionPane.showMessageDialog(null, 
-                    "No se encontró ningún libro con el título '" + tituloBuscado + "'.", "Resultado", JOptionPane.WARNING_MESSAGE);
+                public void mouseExited(MouseEvent evt) {
+                    jbBuscarLibroForm.jBotonMouseExited(evt);
+                }
+            });
+    }
+
+    private void configurarPanelAgregarPrestamo(){
+        Date retiro = new GregorianCalendar().getTime();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaR = formato.format(retiro);
+
+        this.jlFechaRetiro = new MiEtiqueta("Fecha de retiro: ");
+        this.jlTituloLibroRetiro = new MiEtiqueta("Titulo del libro a retirar: ");
+        this.jlDniSocioRetiro = new MiEtiqueta("Dni del socio: ");
+        this.jlTituloAgregarPrestamo = new Titulos("Agregar prestamo");
+        this.jtfFechaRetiro = new JTextField();
+        this.jtfTituloLibroRetiro = new JTextField();
+        this.jtfDniSocioRetiro = new JTextField();
+        this.jbRegistrarPrestamo = new MiBoton("Registrar prestamo");
+
+        this.jifAgregarPrestamo.add(jlTituloAgregarPrestamo);
+
+        this.jifAgregarPrestamo.add(jlFechaRetiro);
+        this.jlFechaRetiro.setBounds(75, 90, 220, 28);
+
+        this.jtfFechaRetiro.setText(fechaR);
+        this.jifAgregarPrestamo.add(jtfFechaRetiro);
+        this.jtfFechaRetiro.setBounds(75, 120, 220, 28);
+
+        this.jifAgregarPrestamo.add(jlTituloLibroRetiro);
+        this.jlTituloLibroRetiro.setBounds(75, 160, 220, 28);
+
+        this.jifAgregarPrestamo.add(jtfTituloLibroRetiro);
+        this.jtfTituloLibroRetiro.setBounds(75, 190, 220, 28);
+
+        this.jifAgregarPrestamo.add(jlDniSocioRetiro);
+        this.jlDniSocioRetiro.setBounds(355, 160, 220, 28);
+
+        this.jifAgregarPrestamo.add(jtfDniSocioRetiro);
+        this.jtfDniSocioRetiro.setBounds(355, 190, 220, 28);
+
+        this.jifAgregarPrestamo.add(jbRegistrarPrestamo);
+        this.jbRegistrarPrestamo.setBounds(250, 270, 130, 40);
+        this.jbRegistrarPrestamo.addMouseListener(new MouseAdapter(){
+                public void mouseEntered(MouseEvent evt){
+                    jbRegistrarPrestamo.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbRegistrarPrestamo.jBotonMouseExited(evt);
+                }
+
+                public void mouseClicked(MouseEvent evt){
+                    try{
+                        Date hoy = formato.parse(jtfFechaRetiro.getText());
+                        Calendar fech =  Calendar.getInstance();
+                        fech.setTime(hoy);
+                        String titulo = jtfTituloLibroRetiro.getText().trim();
+                        if(titulo.isEmpty()){
+                            JOptionPane.showMessageDialog(null, "Ingrese un titulo valido");
+                            return;
+                        }
+                        Libro libro = null;
+                        for(Libro unLibro : miBiblioteca.getLibros()){
+                            if(unLibro.getTitulo().equalsIgnoreCase(titulo)){
+                                libro = unLibro;
+                            }
+                        }
+                        if(libro != null && (miBiblioteca.prestarLibro(fech, miBiblioteca.buscarSocio(Integer.parseInt(jtfDniSocioRetiro.getText())), libro))){
+                            JOptionPane.showMessageDialog(null, libro.ultimoPrestamo().toString());
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Datos invalidos");
+                        }
+                    }catch(ParseException ex){
+                        JOptionPane.showMessageDialog(null, "Error en la fecha");
                     }
                 }
-            }
-        });
-        jbBuscarLibroForm.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent evt) {
-                jbBuscarLibroForm.jBotonMouseEntered(evt);
-            }
-            public void mouseExited(MouseEvent evt) {
-                jbBuscarLibroForm.jBotonMouseExited(evt);
-            }
-        });
+            });
+        this.jtfDniSocioRetiro.addKeyListener(new KeyAdapter(){
+           public void keyTyped(KeyEvent evt){
+               if(jtfDniSocioRetiro.getText().length() <= 10){
+                   controlNumeros(evt);
+               } else {
+                   evt.consume();
+               }
+           }
+        });    
+    }
+
+    private void configurarPanelRegistrarDevolucion(){
+        Date retiro = new GregorianCalendar().getTime();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaD = formato.format(retiro);
+
+        this.jifRegistrarDevolucion = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jlTituloRegistrarDevolucion = new Titulos("Registrar devolucion");
+        this.jlFechaDevolucion = new MiEtiqueta("Fecha de devolucion: ");
+        this.jlTituloLibroDevuelto = new MiEtiqueta("Titulo del libro: ");
+        this.jtfFechaDevolucion = new JTextField();
+        this.jtfTituloLibroDevuelto = new JTextField();
+        this.jbRegistrarLibroDevolucion = new MiBoton("Registrar devolucion");
+
+        this.jifRegistrarDevolucion.add(jlTituloRegistrarDevolucion);
+        this.jifRegistrarDevolucion.add(jlFechaDevolucion);
+        this.jlFechaDevolucion.setBounds(190, 90, 220, 28);
+
+        this.jtfFechaDevolucion.setText(fechaD);
+        this.jifRegistrarDevolucion.add(jtfFechaDevolucion);
+        this.jtfFechaDevolucion.setBounds(190, 120, 220, 28);
+
+        this.jifRegistrarDevolucion.add(jlTituloLibroDevuelto);
+        this.jlTituloLibroDevuelto.setBounds(190, 160, 220, 28);
+
+        this.jifRegistrarDevolucion.add(jtfTituloLibroDevuelto);
+        this.jtfTituloLibroDevuelto.setBounds(190, 190, 220, 28);
+
+        this.jifRegistrarDevolucion.add(jbRegistrarLibroDevolucion);
+        this.jbRegistrarLibroDevolucion.setBounds(240, 300, 140, 40);
+        this.jbRegistrarLibroDevolucion.addMouseListener(new MouseAdapter(){
+                public void mouseEntered(MouseEvent evt){
+                    jbRegistrarLibroDevolucion.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbRegistrarLibroDevolucion.jBotonMouseExited(evt);
+                }
+
+                public void mouseClicked(MouseEvent evt){
+                    String tituloD = jtfTituloLibroDevuelto.getText().trim();
+                    if(tituloD.isEmpty()){
+                        JOptionPane.showMessageDialog(null, "Ingrese un titulo valido");
+                        return;
+                    }
+                    Libro libro = null;
+                    for(Libro unLibro : miBiblioteca.getLibros()){
+                        if(unLibro.getTitulo().equalsIgnoreCase(tituloD)){
+                            libro = unLibro;
+                        }
+                    }
+                    if(libro != null){
+                        try {
+                            miBiblioteca.devolverLibro(libro);
+                            JOptionPane.showMessageDialog(null, "Devolucion registrada");
+                        } catch (LibroEnBibliotecaException ex) {
+                            JOptionPane.showMessageDialog(null, "El libro no figura como prestado");
+                        }
+                    }
+                }
+            });
     }
 
     private void iniciarBiblioteca(){
@@ -1426,5 +1352,11 @@ public class Menu extends JFrame {
         Socio socioNoResponsable = this.miBiblioteca.buscarSocio(26987456);
         Libro libro4 = this.miBiblioteca.getLibros().get(4);
         this.miBiblioteca.prestarLibro(fechaVencida, socioNoResponsable, libro4);
+    }
+    
+    private void controlNumeros(KeyEvent evt){
+        if(Character.isLetter(evt.getKeyChar()) && !(evt.getKeyChar() == KeyEvent.VK_SPACE)){
+            evt.consume();
+        }
     }
 }

@@ -75,6 +75,8 @@ public class Prestamo
      */
     public void registrarFechaDevolucion(Calendar p_fecha){
         this.setFechaDevolucion(p_fecha);
+        this.getSocio().quitarPrestamo(this);
+        this.getLibro().quitarPrestamo(this);
     }
 
     /**
@@ -113,9 +115,6 @@ public class Prestamo
                    "\nLibro: " + this.getLibro().getTitulo() +
                    "\nSocio: " + this.getSocio().getNombre();
         } catch(NullPointerException ex){
-            // Si la fecha de devolución no existe aún
-            System.out.println("El libro aun no ha sido devuelto.");
-        } finally {
             Date retiro = this.getFechaRetiro().getTime();
             SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
             String fr = formato.format(retiro);

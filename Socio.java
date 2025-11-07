@@ -100,13 +100,9 @@ public abstract class Socio
      * @return true si se quitó correctamente, false si no fue posible
      */
     public boolean quitarPrestamo(Prestamo p_prestamo){
-        if(this.getPrestamos().size() > 1){
-            return this.getPrestamos().remove(p_prestamo);
-        } else {
-            return false;
-        }
+        return this.getPrestamos().remove(p_prestamo);
     }
-    
+
     // Métodos
     /**
      * Calcula la cantidad de libros que el socio tiene actualmente prestados,
@@ -115,13 +111,7 @@ public abstract class Socio
      * @return Número de libros prestados sin devolver
      */
     public int cantLibroPrestados(){
-        int lib = 0;
-        for(int i = 0; i < this.getPrestamos().size(); i++){
-            if(this.getPrestamos().get(i).getFechaDevolucion() == null){
-                lib++;
-            }
-        }
-        return lib;
+        return this.getPrestamos().size();
     }
 
     /**
@@ -150,7 +140,7 @@ public abstract class Socio
         }
         return puede;
     }
-    
+
     /**
      * Método abstracto que devuelve una cadena indicando el tipo de socio.
      * 
