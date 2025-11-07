@@ -40,6 +40,10 @@ public class Menu extends JFrame {
     private MiIcono jlAgregarSocio;
     private MiIcono jlQuitarSocio;
     private MiIcono jlListarSocios;
+    
+    //icono docente responsable
+    private MiIcono jlDocenteResponsable;
+    private MiBoton jbDocenteResponsable;
 
     // Componentes De Agregar Socio
     private MiPanelEscritorio jifAgregarSocio;
@@ -59,15 +63,24 @@ public class Menu extends JFrame {
     private JTextField jtfCarreraAsignatura;
     private MiBoton jbGuardarSocio; 
     private Titulos jlTituloAgregarPrestamo;
+    
+    //componentes docente responsable
+    private JTextArea elListadoDocenteResponsable;
+    private MiPanelEscritorio jifDocenteResponsable;
+    private JTextArea unListadoDocentesR;
+    private MiBoton jbActualizarListaDocenRes;
+    
 
     //agregado mio DE LIBRO 
     private MiPanelEscritorio jifLibro; //Este es el panel o ventana interna principal que contiene todo lo relacionado con los socios. Cuando el usuario hace clic en jbOpcionSocios
     private MiIcono jlAgregarLibros; //Un icono que el usuario puede pulsar para añadir un nuevo libro
     private MiIcono jlQuitarLibro; // lo mismo que agregar
     private MiIcono jlListarLibros; // icono para listar
+    private MiIcono jlBuscarLibro; //ICONO PARA BUSCAR
     private MiBoton jbAgregarLibro;
     private MiBoton jbQuitarLibro; //boton de quitarLibro
     private MiBoton jbListarLibros; // listar los libros
+    private MiBoton jbBuscarLibros; //BOTON PARA BUSCAR
     private Titulos jlTituloLibro;
     
     //Agregar libros
@@ -90,7 +103,11 @@ public class Menu extends JFrame {
     private MiPanelEscritorio jifListarLibros;
     private JTextArea unListadoLibros;
     private MiBoton jbActualizarListaLibros;
-    //  
+    
+    //buscar libro
+    private MiPanelEscritorio jifBuscarLibro;
+    private JTextField jtfTituloBuscar;
+    private MiBoton jbBuscarLibroForm;
 
     public Menu() {
         this.iniciarBiblioteca();
@@ -157,6 +174,10 @@ public class Menu extends JFrame {
         this.jbListarSocios = new MiBoton("Listar Socios");
         this.jbListarSocios.setBounds(440, 180, 140, 40); // igual
         this.jifSocio.add(this.jbListarSocios);
+        
+        //listar docentes responsables
+        this.jlDocenteResponsable = new MiIcono("/imagenes/Docente_Responsable.png");
+        this.jbDocenteResponsable = new MiBoton("Docentes Responsables");
 
         this.jifSocio.add(jbAgregarSocio);
         this.jbAgregarSocio.addMouseListener(new MouseAdapter() {
@@ -210,7 +231,26 @@ public class Menu extends JFrame {
                     jbListarSocios.jBotonMouseExited(evt);
                 }
             });
+        
+        //se agrega el boton de docentes responsables
+        this.jifSocio.add(jbDocenteResponsable);
+        this.jbDocenteResponsable.setBounds(240, 320, 140, 40); 
+        this.jbDocenteResponsable.addMouseListener(new MouseAdapter(){
+                public void mouseEntered(MouseEvent evt){
+                    jbDocenteResponsable.jBotonMouseEntered(evt);
+                }
 
+                public void mouseExited(MouseEvent evt){
+                    jbDocenteResponsable.jBotonMouseExited(evt); //
+                }
+                public void mouseClicked(MouseEvent evt){
+                jtpEscritorio.setSelectedIndex(12);
+                }
+            });
+        //agregar icono de docente responsable
+        this.jifSocio.add(jlDocenteResponsable);
+        this.jlDocenteResponsable.setBounds(280, 250, 64, 64);
+        
         //lo que SE AGREGO DE LIBRO
         this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jlTituloLibro = new Titulos("Libros");
@@ -221,6 +261,9 @@ public class Menu extends JFrame {
         this.jbQuitarLibro = new MiBoton("Quitar Libro");
         this.jbListarLibros = new MiBoton("Listar Libros");
         //_--------------------------------------------
+        //buscar libro 
+        this.jlBuscarLibro = new MiIcono("/imagenes/Buscar_Libro.png");
+        this.jbBuscarLibros = new MiBoton("Buscar Libro");
 
         //Settea los atributos de la ventana principal
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -242,11 +285,13 @@ public class Menu extends JFrame {
         configurarPanelAgregarSocio();
         configurarPanelQuitarSocio();
         configurarPanelListarSocios();
+        configurarPanelListarDocenteResponsable();
         
-        //PANEL AGREGAR LIBROS / QUITAR LIBRO/ LISTAR LIBROS
+        //PANEL AGREGAR LIBROS / QUITAR LIBRO/ LISTAR LIBROS / BUSCAR LIBROS
         configurarPanelAgregarLibro();
         configurarQuitarLibro();
         configurarPanelListarLibros();
+        configurarPanelBuscarLibro();
         
 
         //Settea el Layout de los paneles a null para ubicar con presicion los componente con coordenadas (x, y)
@@ -287,6 +332,10 @@ public class Menu extends JFrame {
         //Añade icono de listado de libro
         this.jifLibro.add(jlListarLibros);
         this.jlListarLibros.setBounds(460, 100, 64, 64);
+        
+        //se añade icono de buscar libro
+        this.jifLibro.add(jlBuscarLibro);
+        this.jlBuscarLibro.setBounds(260, 250, 64, 64);
 
         //Añade boton de agregar Libro
         this.jifLibro.add(jbAgregarLibro);
@@ -334,6 +383,21 @@ public class Menu extends JFrame {
                 
                 public void mouseClicked(MouseEvent evt){
                 jtpEscritorio.setSelectedIndex(9);
+                }
+            });
+        //se añade el boton de buscar libro
+        this.jifLibro.add(jbBuscarLibros);
+        this.jbBuscarLibros.setBounds(225, 320, 130, 40);
+        this.jbBuscarLibros.addMouseListener(new MouseAdapter(){
+                public void mouseEntered(MouseEvent evt){
+                    jbBuscarLibros.jBotonMouseEntered(evt);
+                }
+
+                public void mouseExited(MouseEvent evt){
+                    jbBuscarLibros.jBotonMouseExited(evt); //
+                }
+                public void mouseClicked(MouseEvent evt){
+                jtpEscritorio.setSelectedIndex(11);
                 }
             });
 
@@ -485,6 +549,8 @@ public class Menu extends JFrame {
         this.jtpEscritorio.addTab("tab9", jifQuitarLibro);
         this.jtpEscritorio.addTab("tab10", jifListarLibros);
         this.jtpEscritorio.addTab("tab11", jifAgregarPrestamo);
+        this.jtpEscritorio.addTab("tab12", jifBuscarLibro);
+        this.jtpEscritorio.addTab("tab13", jifDocenteResponsable);
         this.jifLibro.setBounds(0, 0, 730, 420);
         //Añade el panel de opciones a la ventana principal
         this.getContentPane().add(jpOpciones);
@@ -768,7 +834,7 @@ public class Menu extends JFrame {
         jbQuitarSocio.setBounds(botonX, 230, botonWidth, botonHeight);
         jifQuitarSocio.add(jbQuitarSocio);
 
-        // 5. Eventos Botón 
+        // 5. Eventos Botón (lógica tuya luego)
         jbQuitarSocio.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent evt) {
                     try {
@@ -874,6 +940,68 @@ public class Menu extends JFrame {
                 }
             });
 
+    }
+    /**
+     * Listar Docentes Responsables
+     */
+    private void configurarPanelListarDocenteResponsable(){
+        //panel principal
+        jifDocenteResponsable = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifDocenteResponsable.setLayout(null);
+
+        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
+        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
+        Color colorTexto = Color.WHITE;
+
+        int panelWidth = 730;
+        int desplazamiento = 40;
+
+        //titulo
+        JLabel jlTitulo = new JLabel("Listado de Docentes Responsable");
+        jlTitulo.setFont(fontTitulo);
+        jlTitulo.setForeground(colorTexto);
+        int tituloWidth = 300;
+        jlTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+        jlTitulo.setBounds(0, 20, panelWidth, 30);
+        jifDocenteResponsable.add(jlTitulo);
+
+        // area texto para mostrar el listado
+        elListadoDocenteResponsable = new JTextArea();
+        elListadoDocenteResponsable.setEditable(false);
+        elListadoDocenteResponsable.setOpaque(false);
+        elListadoDocenteResponsable.setForeground(colorTexto);
+        elListadoDocenteResponsable.setFont(new Font("Corbel", Font.PLAIN, 14));
+        elListadoDocenteResponsable.setLineWrap(true);
+        elListadoDocenteResponsable.setWrapStyleWord(true);
+
+        JScrollPane scroll = new JScrollPane(elListadoDocenteResponsable);
+        scroll.setBounds(70, 80, 500, 220);
+        scroll.setOpaque(false);
+        scroll.getViewport().setOpaque(false);
+        jifDocenteResponsable.add(scroll);
+
+        //boton de actualizar
+        jbDocenteResponsable = new MiBoton("Actualizar Lista");
+        int botonWidth = 150;
+        int botonHeight = 40;
+        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
+        jbDocenteResponsable.setBounds(botonX, 310, botonWidth, botonHeight);
+        jifDocenteResponsable.add(jbDocenteResponsable);
+        
+        jbDocenteResponsable.addMouseListener(new MouseAdapter(){
+          public void mouseClicked(MouseEvent evt){
+              elListadoDocenteResponsable.setText(miBiblioteca.listaDeDocentesResponsables());//lista de los docentes responsables
+              elListadoDocenteResponsable.setCaretPosition(0);
+          }
+          
+          public void mouseEntered(MouseEvent evt){
+              jbDocenteResponsable.jBotonMouseEntered(evt);
+          }
+          
+          public void mouseExited(MouseEvent evt){
+              jbDocenteResponsable.jBotonMouseExited(evt);
+          }
+       });
     }
     /**
      * AGREGAR LIBRO
@@ -1179,6 +1307,92 @@ public class Menu extends JFrame {
        });
        
     }
+    /**
+     * Buscar libro
+     */
+    private void configurarPanelBuscarLibro(){
+        //panel principal
+        jifBuscarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifBuscarLibro.setLayout(null);
+        //fuentes
+        Font fontTitulo = new Font("Corbel", Font.BOLD, 24);
+        Font fontLabel = new Font("Corbel", Font.BOLD, 14);
+        Color colorTexto = Color.WHITE;
+        int panelWidth = 730;
+        int desplazamiento = 40;
+        
+        //titulo 
+        JLabel jlTituloForm = new JLabel("Buscar Libro del Catálogo");
+        jlTituloForm.setFont(fontTitulo);
+        jlTituloForm.setForeground(colorTexto);
+        int tituloWidth = 300;
+        int tituloX = ((panelWidth - tituloWidth) / 2);
+        jlTituloForm.setBounds(tituloX, 40 , tituloWidth, 30);
+        jifBuscarLibro.add(jlTituloForm);
+        
+        //titulo del libro
+        JLabel jlTituloBuscar = new JLabel("Titulo del libro:");
+        jlTituloBuscar.setFont(fontLabel);
+        jlTituloBuscar.setForeground(colorTexto);
+        int labelWidth = 200;
+        int fieldWidth = 220;
+        int fieldHeight = 28;
+        int posX = ((panelWidth - fieldWidth) / 2) - desplazamiento;
+        
+        jlTituloBuscar.setBounds(posX, 120, labelWidth, 25);
+        jifBuscarLibro.add(jlTituloBuscar);
+        
+        jtfTituloBuscar = new JTextField();
+        jtfTituloBuscar.setBounds(posX, 150, fieldWidth, fieldHeight);
+        jifBuscarLibro.add(jtfTituloBuscar);
+        
+        //boton buscar
+        int botonWidth = 150;
+        int botonHeight = 40;
+        int botonX = ((panelWidth - botonWidth) / 2) - desplazamiento;
+        jbBuscarLibroForm = new MiBoton("Buscar Disponibilidad");
+        jbBuscarLibroForm.setBounds(botonX, 230, botonWidth, botonHeight);
+        jifBuscarLibro.add(jbBuscarLibroForm);
+        
+        //operacion buscar quien tiene el libro
+        jbBuscarLibroForm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            // se pide el titulo al usuario
+            String tituloBuscado = jtfTituloBuscar.getText().trim(); 
+            // se verifica que haya escrito algo
+            if (tituloBuscado != null && !tituloBuscado.trim().isEmpty()) {
+                boolean encontrado = false;
+                for (Libro unLibro : miBiblioteca.getLibros()) {
+                    if (unLibro.getTitulo().equalsIgnoreCase(tituloBuscado.trim())) {
+                        encontrado = true;
+                        try {
+                            String nombreSocio = miBiblioteca.quienTieneElLibro(unLibro);
+                            JOptionPane.showMessageDialog(null, "El libro '" + unLibro.getTitulo() + "' está prestado a " + nombreSocio + ".", 
+                            "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                        } catch (LibroEnBibliotecaException ex) {
+                            JOptionPane.showMessageDialog(null, 
+                            "El libro '" + unLibro.getTitulo() + "' está en la biblioteca (disponible).","Resultado", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                        break; // dejamos de buscar una vez que lo encontramos
+                    }
+                }
+
+                if (!encontrado) {
+                    JOptionPane.showMessageDialog(null, 
+                    "No se encontró ningún libro con el título '" + tituloBuscado + "'.", "Resultado", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+        });
+        jbBuscarLibroForm.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent evt) {
+                jbBuscarLibroForm.jBotonMouseEntered(evt);
+            }
+            public void mouseExited(MouseEvent evt) {
+                jbBuscarLibroForm.jBotonMouseExited(evt);
+            }
+        });
+    }
 
     private void iniciarBiblioteca(){
         this.miBiblioteca = new Biblioteca("Biblioteca Central");
@@ -1204,5 +1418,13 @@ public class Menu extends JFrame {
         Socio socio3 = miBiblioteca.buscarSocio(31987123);
         Libro libro3 = miBiblioteca.getLibros().get(2); 
         if (socio3 != null && libro3 != null) {this.miBiblioteca.prestarLibro(new GregorianCalendar(), socio3, libro3);}
+        //carga de socios docentes no responsables
+        this.miBiblioteca.nuevoSocioDocente(26987456, "Graciela Vallejos", 5, "Sistemas");
+        this.miBiblioteca.nuevoLibro("Sistemas Operativos Modernos", 1, "Global", 2000);
+        Calendar fechaVencida = new GregorianCalendar();
+        fechaVencida.add(Calendar.DAY_OF_MONTH, -30); //prestamo vencido hace 30 dias
+        Socio socioNoResponsable = this.miBiblioteca.buscarSocio(26987456);
+        Libro libro4 = this.miBiblioteca.getLibros().get(4);
+        this.miBiblioteca.prestarLibro(fechaVencida, socioNoResponsable, libro4);
     }
 }
