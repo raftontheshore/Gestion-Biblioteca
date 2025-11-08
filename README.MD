@@ -2,7 +2,7 @@
 
 Un sistema de escritorio desarrollado en Java Swing para la administración de socios, libros y préstamos de una biblioteca.
 
-![Screenshot](https://i.imgur.com/VvBvYyq.png)
+![Screenshot del sistema](Imagenes/Screenshot.jpg)
 
 ---
 
