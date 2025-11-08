@@ -36,6 +36,7 @@ public class Docente extends Socio{
      * Verifica el historial del Docente para ver si es responsable
      * @return true si el docente es responsable, nunca tuvo ni tiene un prestamo vencido
      */
+
     public boolean esResponsable(){
         if(super.getDiasPrestamo() == -1){
             return false; //si ya fue marcado con -1 entonces no es responsable
@@ -55,7 +56,7 @@ public class Docente extends Socio{
         }
         return true;
     }
-
+    
     /**
      * Agrega dias de prestamo a la cantidad de dias base del docente como recomprensa por la responsabilidad
      * @param int p_dias, cantidad de dias que se pueden agregar al periodo de prestamo
