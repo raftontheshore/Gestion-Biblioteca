@@ -800,7 +800,10 @@ public class Menu extends JFrame {
                             JOptionPane.showMessageDialog(null, "No existe un socio con ese DNI.");
                             return;
                         }
-
+                        if(socio.cantLibroPrestados() > 0){
+                            JOptionPane.showMessageDialog(null, "El socio: "+ socio.getNombre() + "no puede quitar de la lista porque tiene Prestamos pendientes");
+                            return;
+                        }
                         miBiblioteca.eliminarSocio(socio);
                         JOptionPane.showMessageDialog(null, "Socio eliminado correctamente.");
 
