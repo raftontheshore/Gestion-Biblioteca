@@ -32,7 +32,7 @@ Este proyecto es una aplicación GUI que permite gestionar las operaciones bási
 
 * **Lenguaje:** Java
 * **Interfaz Gráfica (GUI):** Java Swing
-* **Gestión de Datos:** En memoria (utilizando `ArrayLists` y clases de modelo).
+* **Gestión de Datos:** En memoria (utilizando `ArrayLists` y  `HashMaps`).
 
 ---
 
