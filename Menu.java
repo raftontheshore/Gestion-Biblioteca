@@ -801,7 +801,7 @@ public class Menu extends JFrame {
                             return;
                         }
                         if(socio.cantLibroPrestados() > 0){
-                            JOptionPane.showMessageDialog(null, "El socio: "+ socio.getNombre() + "no puede quitar de la lista porque tiene Prestamos pendientes");
+                            JOptionPane.showMessageDialog(null, "El socio: "+ socio.getNombre() + " no se puede quitar de la lista porque tiene Prestamos pendientes");
                             return;
                         }
                         miBiblioteca.eliminarSocio(socio);
