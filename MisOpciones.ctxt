@@ -1,10 +1,16 @@
 #BlueJ class context
 comment0.target=MisOpciones
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MisOpciones\ here.\r\n\ \r\n\ @author\ Diosito\r\n
+comment0.text=\r\n\ Representa\ un\ bot\u00F3n\ personalizado\ dise\u00F1ado\ para\ un\ panel\ de\ navegaci\u00F3n\ lateral\r\n\ (ej.\ "Inicio",\ "Socios",\ etc.).\r\n\ <p>\r\n\ Extiende\ {@link\ JButton}\ y\ a\u00F1ade\ un\ estado\ visual\ 'activo',\ adem\u00E1s\ de\r\n\ efectos\ 'hover',\ gestionando\ su\ opacidad.\r\n\r\n\ @author\ Aguirre\ Mauricio\ Alejandro,\ Iturrieta\ Waldemar\r\n\ @version\ 07/11/25\r\n
 comment1.params=
 comment1.target=MisOpciones()
+comment1.text=\r\n\ Construye\ un\ nuevo\ bot\u00F3n\ de\ navegaci\u00F3n.\r\n\ <p>\r\n\ Inicializa\ el\ estilo\ visual\ por\ defecto,\ estableci\u00E9ndolo\ como\ no\ opaco,\r\n\ definiendo\ fuentes\ y\ colores,\ eliminando\ bordes\ y\ organizando\ el\ \u00EDcono\r\n\ y\ el\ texto\ en\ una\ pila\ vertical\ (\u00EDcono\ arriba,\ texto\ abajo).\r\n
 comment2.params=evt
 comment2.target=void\ jbOpcionMouseEntered(java.awt.event.MouseEvent)
+comment2.text=\r\n\ Maneja\ el\ evento\ de\ entrada\ del\ mouse\ (hover).\r\n\ Hace\ el\ bot\u00F3n\ opaco\ para\ proporcionar\ retroalimentaci\u00F3n\ visual.\r\n\r\n\ @param\ evt\ El\ evento\ del\ mouse.\r\n
 comment3.params=evt
 comment3.target=void\ jbOpcionMouseExited(java.awt.event.MouseEvent)
-numComments=4
+comment3.text=\r\n\ Maneja\ el\ evento\ de\ salida\ del\ mouse.\r\n\ Vuelve\ el\ bot\u00F3n\ transparente\ (no\ opaco),\ *a\ menos*\ que\ est\u00E9\r\n\ actualmente\ marcado\ como\ 'activo'.\r\n\r\n\ @param\ evt\ El\ evento\ del\ mouse.\r\n
+comment4.params=active
+comment4.target=void\ setActive(boolean)
+comment4.text=\r\n\ Define\ si\ este\ bot\u00F3n\ debe\ mostrarse\ como\ la\ pesta\u00F1a\ activa.\r\n\ Un\ bot\u00F3n\ activo\ permanece\ opaco\ (resaltado)\ incluso\ cuando\ el\r\n\ mouse\ no\ est\u00E1\ sobre\ \u00E9l.\r\n\r\n\ @param\ active\ true\ si\ el\ bot\u00F3n\ debe\ marcarse\ como\ activo,\ false\ si\ no.\r\n
+numComments=5

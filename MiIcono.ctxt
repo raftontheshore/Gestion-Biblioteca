@@ -1,8 +1,10 @@
 #BlueJ class context
 comment0.target=MiIcono
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MiIcono\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Representa\ una\ etiqueta\ (JLabel)\ dise\u00F1ada\ para\ mostrar\ una\ imagen\r\n\ que\ se\ escala\ autom\u00E1ticamente\ para\ llenar\ el\ tama\u00F1o\ completo\ del\ componente.\r\n\r\n\ @author\ Aguirre\ Mauricio\ Alejandro,\ Iturrieta\ Waldemar\r\n\ @version\ 07/11/25\r\n
 comment1.params=image
 comment1.target=MiIcono(java.lang.String)
+comment1.text=\r\n\ Construye\ un\ nuevo\ MiIcono\ cargando\ una\ imagen\ desde\ la\ ruta\ especificada.\r\n\ <p>\r\n\ La\ ruta\ de\ la\ imagen\ se\ resuelve\ relativa\ a\ la\ ubicaci\u00F3n\ de\ la\ clase.\r\n\ La\ alineaci\u00F3n\ horizontal\ se\ establece\ en\ CENTRO\ por\ defecto.\r\n\r\n\ @param\ image\ La\ ruta\ del\ recurso\ de\ la\ imagen\ (ej.\ "/recursos/icono.png").\r\n
 comment2.params=g
 comment2.target=void\ paintComponent(java.awt.Graphics)
+comment2.text=\r\n\ Sobrescribe\ el\ m\u00E9todo\ de\ pintado\ principal\ para\ dibujar\ la\ imagen.\r\n\ <p>\r\n\ Dibuja\ la\ {@code\ imagen}\ almacenada\ escal\u00E1ndola\ para\ que\ ocupe\r\n\ exactamente\ el\ ancho\ (getWidth)\ y\ alto\ (getHeight)\ actuales\ del\ JLabel.\r\n\r\n\ @param\ g\ El\ contexto\ gr\u00E1fico\ {@link\ Graphics}\ en\ el\ que\ pintar.\r\n
 numComments=3

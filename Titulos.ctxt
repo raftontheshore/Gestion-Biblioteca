@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=Titulos
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MiBoton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Representa\ una\ etiqueta\ (JLabel)\ dise\u00F1ada\ para\ usarse\ como\ un\ t\u00EDtulo\ grande.\r\n\ <p>\r\n\ Establece\ autom\u00E1ticamente\ una\ fuente\ grande\ ("Corbel",\ negrita,\ 40),\r\n\ color\ de\ texto\ (blanco)\ y\ una\ posici\u00F3n\ y\ tama\u00F1o\ fijos\ (bounds).\r\n\r\n\ @author\ Aguirre\ Mauricio\ Alejandro\r\n\ @version\ 07/11/25\r\n
 comment1.params=text
 comment1.target=Titulos(java.lang.String)
+comment1.text=\r\n\ Construye\ una\ nueva\ etiqueta\ de\ T\u00EDtulo\ con\ el\ texto\ especificado\r\n\ y\ aplica\ el\ estilo\ de\ t\u00EDtulo\ por\ defecto.\r\n\r\n\ @param\ text\ El\ texto\ que\ se\ mostrar\u00E1\ en\ el\ t\u00EDtulo.\r\n
 numComments=2

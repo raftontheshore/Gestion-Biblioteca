@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=MiEtiqueta
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MiEtiqueta\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Representa\ una\ etiqueta\ (JLabel)\ personalizada\ con\ un\ estilo\ predefinido.\r\n\ <p>\r\n\ Establece\ autom\u00E1ticamente\ la\ fuente\ ("Corbel",\ negrita,\ 14)\ y\ el\ color\r\n\ del\ texto\ (blanco).\r\n\r\n\ @author\ Aguirre\ Mauricio\ Alejandro\r\n\ @version\ 07/11/25\r\n
 comment1.params=text
 comment1.target=MiEtiqueta(java.lang.String)
+comment1.text=\r\n\ Construye\ una\ nueva\ MiEtiqueta\ con\ el\ texto\ especificado\ y\r\n\ aplica\ el\ estilo\ por\ defecto.\r\n\r\n\ @param\ text\ El\ texto\ que\ se\ mostrar\u00E1\ en\ la\ etiqueta.\r\n
 numComments=2

@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=MiPanelEscritorio
+comment0.text=\r\n\ Representa\ un\ panel\ (JPanel)\ que\ utiliza\ una\ imagen\ como\ fondo,\r\n\ escal\u00E1ndola\ para\ que\ ocupe\ todo\ el\ espacio\ del\ panel.\r\n\ <p>\r\n\ Est\u00E1\ dise\u00F1ado\ para\ actuar\ como\ un\ 'escritorio'\ o\ contenedor\ principal,\r\n\ utilizando\ un\ layout\ nulo\ (null\ layout)\ y\ estableciendo\ un\ tama\u00F1o\r\n\ fijo\ por\ defecto.\r\n\r\n\ @author\ Aguirre\ Mauricio\ Alejandro\r\n\ @version\ 07/11/25\r\n
 comment1.params=image
 comment1.target=MiPanelEscritorio(java.lang.String)
+comment1.text=\r\n\ Construye\ un\ nuevo\ panel\ de\ escritorio.\r\n\ <p>\r\n\ Carga\ la\ imagen\ de\ fondo\ desde\ la\ ruta\ especificada,\ establece\ el\r\n\ layout\ a\ {@code\ null}\ y\ fija\ el\ tama\u00F1o\ (bounds)\ a\ 730x420.\r\n\r\n\ @param\ image\ La\ ruta\ del\ recurso\ de\ la\ imagen\ de\ fondo\ (ej.\ "/recursos/fondo.png").\r\n
 comment2.params=g
 comment2.target=void\ paintComponent(java.awt.Graphics)
+comment2.text=\r\n\ Sobrescribe\ el\ m\u00E9todo\ de\ pintado\ principal.\r\n\ <p>\r\n\ Dibuja\ la\ imagen\ de\ fondo\ ({@code\ imagen})\ escal\u00E1ndola\ para\ que\ ocupe\r\n\ exactamente\ el\ ancho\ (getWidth)\ y\ alto\ (getHeight)\ actuales\ del\ panel.\r\n\r\n\ @param\ g\ El\ contexto\ gr\u00E1fico\ {@link\ Graphics}\ en\ el\ que\ pintar.\r\n
 numComments=3

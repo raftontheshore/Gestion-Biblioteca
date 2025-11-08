@@ -1,10 +1,20 @@
 #BlueJ class context
 comment0.target=MiBoton
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ MiBoton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Representa\ un\ bot\u00F3n\ personalizado\ que\ extiende\ {@link\ JButton}\ para\ incluir\r\n\ esquinas\ redondeadas,\ fondos\ con\ gradiente\ y\ efectos\ visuales\ para\ los\r\n\ estados\ normal,\ hover\ (sobre\ el\ bot\u00F3n)\ y\ presionado.\r\n\ <p>\r\n\ Este\ bot\u00F3n\ maneja\ su\ propio\ pintado\ sobrescribiendo\ {@code\ paintComponent}\r\n\ y\ deshabilita\ el\ pintado\ por\ defecto\ de\ Swing\ (fondo,\ borde\ y\ foco).\r\n\ @author\ Aguirre\ Mauricio\ Alejandro,\ Iturrieta\ Waldemar\r\n\ @version\ 07/11/25\r\n
 comment1.params=text
 comment1.target=MiBoton(java.lang.String)
-comment2.params=evt
-comment2.target=void\ jBotonMouseEntered(java.awt.event.MouseEvent)
-comment3.params=evt
-comment3.target=void\ jBotonMouseExited(java.awt.event.MouseEvent)
-numComments=4
+comment1.text=\r\n\ Construye\ un\ nuevo\ MiBoton\ con\ el\ texto\ especificado.\r\n\ <p>\r\n\ Inicializa\ la\ apariencia\ base\ (fuente,\ color\ de\ texto)\ y\ configura\r\n\ los\ listeners\ de\ mouse\ necesarios\ para\ gestionar\ los\ estados\ visuales.\r\n\ Deshabilita\ el\ pintado\ de\ fondo,\ foco\ y\ borde\ por\ defecto.\r\n\r\n\ @param\ text\ El\ texto\ que\ se\ mostrar\u00E1\ en\ el\ bot\u00F3n.\r\n
+comment2.params=e
+comment2.target=void\ mousePressed(java.awt.event.MouseEvent)
+comment3.params=e
+comment3.target=void\ mouseReleased(java.awt.event.MouseEvent)
+comment4.params=evt
+comment4.target=void\ jBotonMouseEntered(java.awt.event.MouseEvent)
+comment4.text=\r\n\ Maneja\ el\ evento\ de\ entrada\ del\ mouse\ (hover).\r\n\ Establece\ el\ estado\ a\ 'hover'\ (1)\ y\ solicita\ un\ repintado.\r\n\r\n\ @param\ evt\ El\ evento\ del\ mouse.\r\n
+comment5.params=evt
+comment5.target=void\ jBotonMouseExited(java.awt.event.MouseEvent)
+comment5.text=\r\n\ Maneja\ el\ evento\ de\ salida\ del\ mouse.\r\n\ Restablece\ el\ estado\ a\ 'normal'\ (0)\ y\ solicita\ un\ repintado.\r\n\r\n\ @param\ evt\ El\ evento\ del\ mouse.\r\n
+comment6.params=g
+comment6.target=void\ paintComponent(java.awt.Graphics)
+comment6.text=\r\n\ Sobrescribe\ el\ m\u00E9todo\ de\ pintado\ principal\ del\ componente.\r\n\ <p>\r\n\ Dibuja\ el\ fondo\ del\ bot\u00F3n\ con\ un\ gradiente\ y\ esquinas\ redondeadas.\r\n\ El\ color\ del\ gradiente\ cambia\ seg\u00FAn\ el\ {@code\ estadoMouse}\ (normal,\r\n\ hover\ o\ presionado).\r\n\ <p>\r\n\ Finalmente,\ llama\ a\ {@code\ super.paintComponent(g)}\ para\ asegurar\r\n\ que\ el\ texto\ del\ bot\u00F3n\ y\ otros\ elementos\ (como\ \u00EDconos)\ se\ dibujen\r\n\ correctamente\ encima\ del\ fondo\ personalizado.\r\n\r\n\ @param\ g\ El\ contexto\ gr\u00E1fico\ {@link\ Graphics}\ en\ el\ que\ pintar.\r\n
+numComments=7
