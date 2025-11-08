@@ -37,21 +37,23 @@ public class Docente extends Socio{
      * @return true si el docente es responsable, nunca tuvo ni tiene un prestamo vencido
      */
     public boolean esResponsable(){
-        Calendar fechaHoy = Calendar.getInstance(); //creo objeto Calendar para indicar la fecha actual
-        for(Prestamo unPrestamo : super.getPrestamos()){ //inicia bucle, devuelve la lista de todos los objetos Prestamo del docente
-            if(unPrestamo.getFechaDevolucion() != null){ //si el prestamo tiene una fecha de devolucion significa que el libro fue devuelto a tiempo
-                if (unPrestamo.vencido(unPrestamo.getFechaDevolucion())){ //llama al metodo vencido de Prestamo y pasa como parametro la fechaDevolucion 
-                    //si es true entonces la fecha de devolucion fue posterior a la fecha limite lo que significa que hubo en algun momento un prestamo vencido 
-                    return false;
-                }
-            } else { //si no hay fecha de devolucion el libro no fue devuelto
-                if (unPrestamo.vencido(fechaHoy)){ //llama al metodo vencido de Prestamo con fechaHoy, si es true el docente tiene en este momento un prestamo vencido 
-                    return false; 
-                }
+        if(super.getDiasPrestamo() == -1){
+            return false; //si ya fue marcado con -1 entonces no es responsable
+        }
+        Calendar fechaHoy = Calendar.getInstance();
+        for(Prestamo unPrestamo : super.getPrestamos()){
+            boolean esVencido;
+            if(unPrestamo.getFechaDevolucion() != null){
+                esVencido = unPrestamo.vencido(unPrestamo.getFechaDevolucion()); 
+            } else {
+                esVencido = unPrestamo.vencido(fechaHoy); //verifica si el prestamo sigue vencido hasta el dia de la fecha
+            }
+            if (esVencido) {
+                super.setDiasPrestamo(-1); //marca definitivamente la irresponsabilidad 
+                return false;
             }
         }
-        return true; //si al recorrer todo el bucle de los prestamos tanto pasados como presentes sin que se cumpla las condiciones entonces 
-        //el docente es responsable y nunca tuvo un prestamo vencido
+        return true;
     }
 
     /**
