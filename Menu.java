@@ -1327,6 +1327,8 @@ public class Menu extends JFrame {
                         } catch (LibroEnBibliotecaException ex) {
                             JOptionPane.showMessageDialog(null, "El libro no figura como prestado");
                         }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El libro no existe en la biblioteca");
                     }
                 }
             });

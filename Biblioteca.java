@@ -130,19 +130,6 @@ public class Biblioteca {
         if (p_libro.prestado()) {
             Prestamo prestamoActivo = p_libro.ultimoPrestamo();
             if (prestamoActivo != null) {
-                for (Libro unLibro : this.getLibros()) {
-                    if (unLibro.getPrestamos().contains(prestamoActivo)) {
-                        unLibro.quitarPrestamo(prestamoActivo);
-                    }
-                }
-                for(Map.Entry<Integer, Socio> unSocio : this.getSocios().entrySet()){
-                    for (Prestamo p : unSocio.getValue().getPrestamos()) {
-                        if (p.equals(prestamoActivo)) {
-                            unSocio.getValue().quitarPrestamo(prestamoActivo);
-                            break;
-                        }
-                    }
-                }
                 prestamoActivo.registrarFechaDevolucion(new GregorianCalendar());       
             } else {
                 throw new RuntimeException("Error interno: Libro marcado como prestado sin un préstamo activo.");

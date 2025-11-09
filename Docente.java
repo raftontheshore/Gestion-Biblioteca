@@ -38,20 +38,19 @@ public class Docente extends Socio{
      */
 
     public boolean esResponsable(){
-        if(super.getDiasPrestamo() == -1){
-            return false; //si ya fue marcado con -1 entonces no es responsable
-        }
         Calendar fechaHoy = Calendar.getInstance();
-        for(Prestamo unPrestamo : super.getPrestamos()){
-            boolean esVencido;
+        if(this.getPrestamos().isEmpty()){
+            return true; //si ya fue marcado con -1 entonces no es responsable
+        }
+        for(Prestamo unPrestamo : this.getPrestamos()){
             if(unPrestamo.getFechaDevolucion() != null){
-                esVencido = unPrestamo.vencido(unPrestamo.getFechaDevolucion()); 
+                if(unPrestamo.vencido(unPrestamo.getFechaDevolucion())){
+                    return false;
+                }
             } else {
-                esVencido = unPrestamo.vencido(fechaHoy); //verifica si el prestamo sigue vencido hasta el dia de la fecha
-            }
-            if (esVencido) {
-                super.setDiasPrestamo(-1); //marca definitivamente la irresponsabilidad 
-                return false;
+                if(unPrestamo.vencido(fechaHoy)){
+                    return false;   
+                }
             }
         }
         return true;

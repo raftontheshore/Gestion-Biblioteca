@@ -111,7 +111,13 @@ public abstract class Socio
      * @return Número de libros prestados sin devolver
      */
     public int cantLibroPrestados(){
-        return this.getPrestamos().size();
+        int cant = 0;
+        for(Prestamo unPrestamo : this.getPrestamos()){
+            if(unPrestamo.getFechaDevolucion() == null){
+                cant++;
+            }
+        }
+        return cant;
     }
 
     /**

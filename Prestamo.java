@@ -75,8 +75,6 @@ public class Prestamo
      */
     public void registrarFechaDevolucion(Calendar p_fecha){
         this.setFechaDevolucion(p_fecha);
-        this.getSocio().quitarPrestamo(this);
-        this.getLibro().quitarPrestamo(this);
     }
 
     /**
@@ -90,8 +88,8 @@ public class Prestamo
      */
     public boolean vencido(Calendar p_fecha){
         int diasP = this.getSocio().getDiasPrestamo();
-        Calendar retiro = this.getFechaRetiro(); // para no modificar el original
-        retiro.add(5, diasP);
+        Calendar retiro = (Calendar) this.getFechaRetiro().clone(); // para no modificar el original
+        retiro.add(Calendar.DAY_OF_MONTH, diasP);
         return p_fecha.after(retiro);
     }
 
