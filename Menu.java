@@ -154,10 +154,10 @@ public class Menu extends JFrame {
      */
     private void iniciarComponentes() {
         this.jlTitulo = new JLabel();
-        this.jifInicio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        this.jifSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        this.jifPrestamo = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
-        this.jifAgregarPrestamo = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifInicio = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifSocio = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifPrestamo = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifAgregarPrestamo = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jpOpciones = new JPanel();
         this.jbOpcionSocios = new MisOpciones();
         this.jbOpcionLibros = new MisOpciones();
@@ -170,16 +170,16 @@ public class Menu extends JFrame {
         this.jlTituloPrestamo = new Titulos("Prestamos");
         this.jlTituloAgregarPrestamo = new Titulos("Agregar prestamo");
         this.jtpEscritorio = new JTabbedPane();
-        this.jlAgregarPrestamo = new MiIcono("/imagenes/Prestamo_Libro.png");
-        this.jlRegistraDevolucion = new MiIcono("/imagenes/Devolver_Libro.png");
-        this.jpCabecera = new MiPanelEscritorio("/imagenes/Header_2.jpg");
+        this.jlAgregarPrestamo = new MiIcono("/Imagenes/Prestamo_Libro.png");
+        this.jlRegistraDevolucion = new MiIcono("/Imagenes/Devolver_Libro.png");
+        this.jpCabecera = new MiPanelEscritorio("/Imagenes/Header_2.jpg");
 
         this.jpOpciones.setLayout(null);
         this.jtpEscritorio.setLayout(null);
 
-        this.jifSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifSocio = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
-        this.jlAgregarSocio = new MiIcono("/imagenes/Agregar_Socio.png");
+        this.jlAgregarSocio = new MiIcono("/Imagenes/Agregar_Socio.png");
         this.jlAgregarSocio.setBounds(160, 80, 64, 64);
         this.jifSocio.add(this.jlAgregarSocio);
 
@@ -187,7 +187,7 @@ public class Menu extends JFrame {
         this.jbAgregarSocio.setBounds(120, 160, 140, 40);
         this.jifSocio.add(this.jbAgregarSocio);
 
-        this.jlQuitarSocio = new MiIcono("/imagenes/Borrar_Socio.png");
+        this.jlQuitarSocio = new MiIcono("/Imagenes/Borrar_Socio.png");
         this.jlQuitarSocio.setBounds(380, 80, 64, 64);
         this.jifSocio.add(this.jlQuitarSocio);
 
@@ -195,7 +195,7 @@ public class Menu extends JFrame {
         this.jbQuitarSocio.setBounds(340, 160, 140, 40); 
         this.jifSocio.add(this.jbQuitarSocio);
 
-        this.jlListarSocios = new MiIcono("/imagenes/Lista_Socios.png");
+        this.jlListarSocios = new MiIcono("/Imagenes/Lista_Socios.png");
         this.jlListarSocios.setBounds(160, 230, 64, 64);
         this.jifSocio.add(this.jlListarSocios);
 
@@ -203,7 +203,7 @@ public class Menu extends JFrame {
         this.jbListarSocios.setBounds(120, 310, 140, 40);
         this.jifSocio.add(this.jbListarSocios);
 
-        this.jlDocenteResponsable = new MiIcono("/imagenes/Docente_Responsable.png");
+        this.jlDocenteResponsable = new MiIcono("/Imagenes/Docente_Responsable.png");
         this.jbDocenteResponsable = new MiBoton("Docentes Responsables");
         this.jifSocio.add(jlDocenteResponsable);       
         this.jbDocenteResponsable.setBounds(340, 310, 140, 40);
@@ -267,16 +267,16 @@ public class Menu extends JFrame {
                 }
             });
 
-        this.jifLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifLibro = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jlTituloLibro = new Titulos("Libros");
-        this.jlAgregarLibros = new MiIcono("/imagenes/Agregar_Libro.png");
-        this.jlQuitarLibro = new MiIcono("/imagenes/Quitar_Libro.png"); 
-        this.jlListarLibros = new MiIcono("/imagenes/Lista_Libros.png");
+        this.jlAgregarLibros = new MiIcono("/Imagenes/Agregar_Libro.png");
+        this.jlQuitarLibro = new MiIcono("/Imagenes/Quitar_Libro.png"); 
+        this.jlListarLibros = new MiIcono("/Imagenes/Lista_Libros.png");
         this.jbAgregarLibro = new MiBoton("Agregar Libro");
         this.jbQuitarLibro = new MiBoton("Quitar Libro");
         this.jbListarLibros = new MiBoton("Listar Libros");
 
-        this.jlBuscarLibro = new MiIcono("/imagenes/Buscar_Libro.png");
+        this.jlBuscarLibro = new MiIcono("/Imagenes/Buscar_Libro.png");
         this.jbBuscarLibros = new MiBoton("Buscar Libro");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -287,7 +287,7 @@ public class Menu extends JFrame {
         this.getContentPane().setLayout(null);
 
         this.jlTitulo.setVerticalTextPosition(SwingConstants.BOTTOM);
-        this.jlTitulo.setIcon(new ImageIcon(getClass().getResource("/imagenes/Libro_Abierto.png")));
+        this.jlTitulo.setIcon(new ImageIcon(getClass().getResource("/Imagenes/Libro_Abierto.png")));
         this.jlTitulo.setIconTextGap(10);
         this.jlTitulo.setFont(new Font("Lato", 1, 36));
         this.jlTitulo.setForeground(new Color(255, 255, 255));
@@ -442,7 +442,7 @@ public class Menu extends JFrame {
 
         // Inicio
         this.jbOpcionInicio.setText("Inicio");
-        this.jbOpcionInicio.setIcon(new ImageIcon(getClass().getResource("/imagenes/M_Inicio.png"))); 
+        this.jbOpcionInicio.setIcon(new ImageIcon(getClass().getResource("/Imagenes/M_Inicio.png"))); 
         this.jpOpciones.add(jbOpcionInicio);
         this.jbOpcionInicio.setBounds(0, 20, 170, 80);
 
@@ -462,7 +462,7 @@ public class Menu extends JFrame {
             });
 
         this.jbOpcionSocios.setText("Socios");
-        this.jbOpcionSocios.setIcon(new ImageIcon(getClass().getResource("/imagenes/M_Socios.png"))); 
+        this.jbOpcionSocios.setIcon(new ImageIcon(getClass().getResource("/Imagenes/M_Socios.png"))); 
         this.jpOpciones.add(jbOpcionSocios);
         this.jbOpcionSocios.setBounds(0, 100, 170, 80);
         this.jbOpcionSocios.addMouseListener(new MouseAdapter() {
@@ -481,7 +481,7 @@ public class Menu extends JFrame {
             });
 
         this.jbOpcionLibros.setText("Libros");
-        this.jbOpcionLibros.setIcon(new ImageIcon(getClass().getResource("/imagenes/M_Libros.png"))); 
+        this.jbOpcionLibros.setIcon(new ImageIcon(getClass().getResource("/Imagenes/M_Libros.png"))); 
         this.jpOpciones.add(jbOpcionLibros);
         this.jbOpcionLibros.setBounds(0, 180, 170, 80); 
         this.jbOpcionLibros.addMouseListener(new MouseAdapter() {
@@ -500,7 +500,7 @@ public class Menu extends JFrame {
             });
 
         this.jbOpcionPrestamos.setText("Prestamos");
-        this.jbOpcionPrestamos.setIcon(new ImageIcon(getClass().getResource("/imagenes/M_Prestamos.png"))); 
+        this.jbOpcionPrestamos.setIcon(new ImageIcon(getClass().getResource("/Imagenes/M_Prestamos.png"))); 
         this.jpOpciones.add(jbOpcionPrestamos);
         this.jbOpcionPrestamos.setBounds(0, 260, 170, 80);
         this.jbOpcionPrestamos.addMouseListener(new MouseAdapter() {
@@ -634,7 +634,7 @@ public class Menu extends JFrame {
      */
     private void configurarPanelAgregarSocio() {
 
-        jifAgregarSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifAgregarSocio = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTituloForm = new Titulos("Agregar Nuevo Socio");
         jifAgregarSocio.add(jlTituloForm);
@@ -766,7 +766,7 @@ public class Menu extends JFrame {
      * con su lógica de búsqueda y eliminación.
      */
     private void configurarPanelQuitarSocio() {
-        jifQuitarSocio = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifQuitarSocio = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTituloForm = new Titulos("Quitar Usuario");
         jifQuitarSocio.add(jlTituloForm);
@@ -830,7 +830,7 @@ public class Menu extends JFrame {
      * para poblar el área de texto con la información de la biblioteca.
      */
     private void configurarPanelListarSocios() {
-        jifListarSocios = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifListarSocios = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTitulo = new Titulos("Listado de Socios");
         jifListarSocios.add(jlTitulo);
@@ -876,7 +876,7 @@ public class Menu extends JFrame {
      * Define un JTextArea y un botón de actualización.
      */
     private void configurarPanelListarDocenteResponsable(){
-        jifDocenteResponsable = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifDocenteResponsable = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTitulo = new Titulos("Listado de Docentes Responsable");
         jifDocenteResponsable.add(jlTitulo);
@@ -921,7 +921,7 @@ public class Menu extends JFrame {
      * con su lógica de validación y creación.
      */
     private void configurarPanelAgregarLibro(){
-        jifAgregarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifAgregarLibro = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTituloForm = new Titulos("Agregar Nuevo Libro");
         jifAgregarLibro.add(jlTituloForm);
@@ -1006,7 +1006,7 @@ public class Menu extends JFrame {
      * con su lógica de validación (ej. no se puede quitar si está prestado).
      */   
     private void configurarQuitarLibro(){
-        jifQuitarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg"); 
+        jifQuitarLibro = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg"); 
 
         Titulos jlTituloForm = new Titulos("Quitar Libro del Catálogo");
         jifQuitarLibro.add(jlTituloForm);
@@ -1073,7 +1073,7 @@ public class Menu extends JFrame {
      * para poblar el área de texto.
      */
     private void configurarPanelListarLibros(){
-        jifListarLibros = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifListarLibros = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTitulo = new Titulos("Listado de libros");
         jifListarLibros.add(jlTitulo);
@@ -1121,7 +1121,7 @@ public class Menu extends JFrame {
      * si el libro está disponible o quién lo tiene prestado.
      */
     private void configurarPanelBuscarLibro(){
-        jifBuscarLibro = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        jifBuscarLibro = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
 
         Titulos jlTituloForm = new Titulos("Buscar Libro del Catálogo");
         jifBuscarLibro.add(jlTituloForm);
@@ -1275,7 +1275,7 @@ public class Menu extends JFrame {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         String fechaD = formato.format(retiro);
 
-        this.jifRegistrarDevolucion = new MiPanelEscritorio("/imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
+        this.jifRegistrarDevolucion = new MiPanelEscritorio("/Imagenes/Fondo_Biblioteca_Escritorio_Blur.jpeg");
         this.jlTituloRegistrarDevolucion = new Titulos("Registrar devolucion");
         this.jlFechaDevolucion = new MiEtiqueta("Fecha de devolucion: ");
         this.jlTituloLibroDevuelto = new MiEtiqueta("Titulo del libro: ");
