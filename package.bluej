@@ -1,12 +1,12 @@
 #BlueJ package file
-dependency1.from=GestionBiblioteca
-dependency1.to=Menu
+dependency1.from=Prestamo
+dependency1.to=Libro
 dependency1.type=UsesDependency
 dependency10.from=Biblioteca
 dependency10.to=Prestamo
 dependency10.type=UsesDependency
-dependency11.from=Docente
-dependency11.to=Prestamo
+dependency11.from=GestionBiblioteca
+dependency11.to=Menu
 dependency11.type=UsesDependency
 dependency12.from=Menu
 dependency12.to=Biblioteca
@@ -33,26 +33,18 @@ dependency19.from=Menu
 dependency19.to=Socio
 dependency19.type=UsesDependency
 dependency2.from=Prestamo
-dependency2.to=Libro
+dependency2.to=Socio
 dependency2.type=UsesDependency
 dependency20.from=Menu
 dependency20.to=Libro
 dependency20.type=UsesDependency
-<<<<<<< Updated upstream
-dependency21.from=Docente
-dependency21.to=Prestamo
-dependency21.type=UsesDependency
-dependency3.from=Biblioteca
-dependency3.to=Libro
-=======
 dependency21.from=Menu
 dependency21.to=LibroEnBibliotecaException
 dependency21.type=UsesDependency
-dependency3.from=Prestamo
-dependency3.to=Socio
->>>>>>> Stashed changes
+dependency3.from=Socio
+dependency3.to=Prestamo
 dependency3.type=UsesDependency
-dependency4.from=Socio
+dependency4.from=Docente
 dependency4.to=Prestamo
 dependency4.type=UsesDependency
 dependency5.from=Biblioteca
@@ -70,33 +62,20 @@ dependency8.type=UsesDependency
 dependency9.from=Biblioteca
 dependency9.to=LibroEnBibliotecaException
 dependency9.type=UsesDependency
-editor.fx.0.height=0
-editor.fx.0.width=0
-editor.fx.0.x=0
-editor.fx.0.y=0
-<<<<<<< Updated upstream
+editor.fx.0.height=739
+editor.fx.0.width=816
+editor.fx.0.x=275
+editor.fx.0.y=10
 objectbench.height=97
-objectbench.width=1341
+objectbench.width=1342
 package.divider.horizontal=0.6
 package.divider.vertical=0.847953216374269
 package.editor.height=573
-package.editor.width=1225
-package.editor.x=141
-package.editor.y=125
-package.frame.height=784
-package.frame.width=1381
-=======
-objectbench.height=66
-objectbench.width=1342
-package.divider.horizontal=0.6
-package.divider.vertical=0.8932748538011696
-package.editor.height=604
 package.editor.width=1226
 package.editor.x=0
 package.editor.y=0
 package.frame.height=784
 package.frame.width=1382
->>>>>>> Stashed changes
 package.numDependencies=21
 package.numTargets=16
 package.showExtends=true

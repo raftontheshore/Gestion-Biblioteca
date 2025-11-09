@@ -1288,6 +1288,7 @@ public class Menu extends JFrame {
         this.jlFechaDevolucion.setBounds(190, 90, 220, 28);
 
         this.jtfFechaDevolucion.setText(fechaD);
+        this.jtfFechaDevolucion.setEditable(false);
         this.jifRegistrarDevolucion.add(jtfFechaDevolucion);
         this.jtfFechaDevolucion.setBounds(190, 120, 220, 28);
 
